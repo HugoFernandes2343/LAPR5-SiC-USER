@@ -74,4 +74,17 @@ public class Cidadao {
         this.numeroReparticao = nRep;
     }
 
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Cidadao)) {
+            return false;
+        }
+        Cidadao that = (Cidadao) obj;
+        return numeroContribuinte == that.numeroContribuinte;
+    }
+    
 }

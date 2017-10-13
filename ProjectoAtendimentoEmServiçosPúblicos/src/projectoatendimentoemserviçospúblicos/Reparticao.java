@@ -72,4 +72,20 @@ public class Reparticao {
     public void setListaServicos(List<String> s) {
         this.listaServicos = s;
     }
+    
+    public void addCidadao(Cidadao cid){
+        listaCidadao.getListaCidadao().addLast(cid);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Reparticao)) {
+            return false;
+        }
+        Reparticao that = (Reparticao) obj;
+        return numeroReparticao == that.numeroReparticao && codigoPostal == that.codigoPostal;
+    }
 }
