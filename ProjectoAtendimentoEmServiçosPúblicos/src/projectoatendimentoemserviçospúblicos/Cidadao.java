@@ -16,6 +16,7 @@ public class Cidadao {
     private String email;
     private String codigoPostal; //neste caso seria uma string pq o codigo postal do cidadao ao contrario do das reparticoes é completo ou seja tem um hifen no meio
     private int numeroReparticao; // verificar o que hugo acha sobre esta variavel
+    private ListaSenha listaSenha;
 
     public Cidadao(String n, int contribuinte, String e, String cod, int nRep) {
         this.nome = n;
@@ -23,6 +24,7 @@ public class Cidadao {
         this.email = e;
         this.codigoPostal = cod;
         this.numeroReparticao = nRep;
+        this.listaSenha = new ListaSenha();
     }
 
     public Cidadao() {

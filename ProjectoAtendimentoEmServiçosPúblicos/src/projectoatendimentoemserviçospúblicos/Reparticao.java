@@ -18,12 +18,15 @@ public class Reparticao {
     private int numeroReparticao;
     private int codigoPostal;
     private List<String> listaServicos;
+    private ListaCidadao listaCidadao;
+//    private DoublyLinkedList<Cidadao> listaCidadao;
 
     public Reparticao(String s, int n, int codigo, List<String> serv) {
         this.cidade = s;
         this.numeroReparticao = n;
         this.codigoPostal = codigo;
         this.listaServicos = serv;
+        this.listaCidadao = new ListaCidadao();
     }
 
     public Reparticao() {
@@ -31,6 +34,7 @@ public class Reparticao {
         this.numeroReparticao = 0;
         this.codigoPostal = 0;
         this.listaServicos = new ArrayList<>();
+        
     }
 
     public String getCidade() {

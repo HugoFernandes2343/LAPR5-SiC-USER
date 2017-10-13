@@ -13,13 +13,13 @@ import java.util.ConcurrentModificationException;
 /**
  *
  * @author DEI-ISEP
- * @param <Reparticao> Generic list element type
+ * @param <E> Generic list element type
  */
-public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Cloneable {
+public class DoublyLinkedList<E> implements Iterable<E>, Cloneable {
 
 // instance variables of the DoublyLinkedList
-    private final Node<Reparticao> header;     // header sentinel
-    private final Node<Reparticao> trailer;    // trailer sentinel
+    private final Node<E> header;     // header sentinel
+    private final Node<E> trailer;    // trailer sentinel
     private int size = 0;       // number of elements in the list
     private int modCount = 0;   // number of modifications to the list (adds or removes)
 
@@ -56,8 +56,8 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @return the first element of the list
      */
-    public Reparticao first() {
-        return header.getNext().getReparticao();
+    public E first() {
+        return header.getNext().getElement();
     }
 
     /**
@@ -65,8 +65,8 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @return the last element of the list
      */
-    public Reparticao last() {
-        return trailer.getPrev().getReparticao();
+    public E last() {
+        return trailer.getPrev().getElement();
     }
 
 // public update methods
@@ -75,7 +75,7 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @param e element to be added to the front of the list
      */
-    public void addFirst(Reparticao e) {
+    public void addFirst(E e) {
         // place just after the header
         addBetween(e, header, header.getNext());
     }
@@ -85,9 +85,9 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @param e element to be added to the end of the list
      */
-    public void addLast(Reparticao r) {
+    public void addLast(E e) {
         // place just before the trailer
-        addBetween(r, trailer.getPrev(), trailer);
+        addBetween(e, trailer.getPrev(), trailer);
     }
 
     /**
@@ -95,9 +95,9 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @return the first element of the list
      */
-    public Reparticao removeFirst() {
-        Reparticao reparticao = remove(header.getNext());
-        return reparticao;
+    public E removeFirst() {
+        E element = remove(header.getNext());
+        return element;
     }
 
     /**
@@ -105,17 +105,17 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
      *
      * @return the last element of the list
      */
-    public Reparticao removeLast() {
-        Reparticao reparticao = remove(trailer.getPrev());
-        return reparticao;
+    public E removeLast() {
+        E element = remove(trailer.getPrev());
+        return element;
     }
 
 // private update methods
     /**
      * Adds an element e to the linked list between the two given nodes.
      */
-    private void addBetween(Reparticao e, Node<Reparticao> predecessor, Node<Reparticao> successor) {
-        Node<Reparticao> node = new Node<>(e, predecessor, successor);
+    private void addBetween(E e, Node<E> predecessor, Node<E> successor) {
+        Node<E> node = new Node<>(e, predecessor, successor);
         predecessor.setNext(node);
         successor.setPrev(node);
         modCount++;
@@ -125,16 +125,16 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
     /**
      * Removes a given node from the list and returns its content.
      */
-    private Reparticao remove(Node<Reparticao> node) {
+    private E remove(Node<E> node) {
         if (size > 0) {
-            Reparticao reparticao = node.getReparticao();
-            Node<Reparticao> tempPrev = node.getPrev();
-            Node<Reparticao> tempNext = node.getNext();
+            E element = node.getElement();
+            Node<E> tempPrev = node.getPrev();
+            Node<E> tempNext = node.getNext();
             tempPrev.setNext(tempNext);
             tempNext.setPrev(tempPrev);
             modCount++;
             size--;
-            return reparticao;
+            return element;
         } else {
             return null;
         }
@@ -143,18 +143,18 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
 // Overriden methods        
     @Override
     public boolean equals(Object obj) {
-        DoublyLinkedList <Reparticao> that = (DoublyLinkedList <Reparticao>) obj;
+        DoublyLinkedList <E> that = (DoublyLinkedList <E>) obj;
         if(that.size != size){
             return false;
         }
         if(that.size ==0 && size ==0){
             return true;
         }
-        Node<Reparticao> temp = header.getNext();
+        Node<E> temp = header.getNext();
         int cont =0;
-        ListIterator <Reparticao> itr = that.listIterator();
+        ListIterator <E> itr = that.listIterator();
         while(itr.hasNext()){
-            if(temp.reparticao == itr.next()){
+            if(temp.element == itr.next()){
                 cont++;
                 temp = temp.getNext();
             }
@@ -167,19 +167,19 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
         if(size == 0){
             throw new CloneNotSupportedException();
         }
-        DoublyLinkedList <Reparticao> copy = new DoublyLinkedList<>();
-        Node<Reparticao> temp = header.getNext();
+        DoublyLinkedList <E> copy = new DoublyLinkedList<>();
+        Node<E> temp = header.getNext();
         while (temp != trailer){
-            copy.addLast(temp.getReparticao());
+            copy.addLast(temp.getElement());
             temp = temp.getNext();
         }
         return copy;
     }
 
 //---------------- nested DoublyLinkedListIterator class ----------------        
-    private class DoublyLinkedListIterator implements ListIterator<Reparticao> {
+    private class DoublyLinkedListIterator implements ListIterator<E> {
 
-        private DoublyLinkedList.Node<Reparticao> nextNode, prevNode, lastReturnedNode; // node that will be returned using next and prev respectively
+        private DoublyLinkedList.Node<E> nextNode, prevNode, lastReturnedNode; // node that will be returned using next and prev respectively
         private int nextIndex;  // Index of the next element
         private int expectedModCount;  // Expected number of modifications = modCount;
 
@@ -203,14 +203,14 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
         }
 
         @Override
-        public Reparticao next() throws NoSuchElementException {
+        public E next() throws NoSuchElementException {
             checkForComodification();
             if (this.hasNext()) {
                 this.prevNode = this.nextNode;
                 this.nextNode = prevNode.getNext();
                 this.lastReturnedNode = this.prevNode;
                 nextIndex++;
-                return lastReturnedNode.getReparticao();
+                return lastReturnedNode.getElement();
             } else {
                 throw new NoSuchElementException("End of list Reached");
             }
@@ -222,14 +222,14 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
         }
 
         @Override
-        public Reparticao previous() throws NoSuchElementException {
+        public E previous() throws NoSuchElementException {
             checkForComodification();
             if (this.hasPrevious()) {
                 this.nextNode = this.prevNode;
                 this.prevNode = this.nextNode.getPrev();
                 this.lastReturnedNode = this.nextNode;
                 nextIndex--;
-                return lastReturnedNode.getReparticao();
+                return lastReturnedNode.getElement();
             } else {
                 throw new NoSuchElementException("Beginning of list Reached");
             }
@@ -262,18 +262,18 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
         }
 
         @Override
-        public void set(Reparticao r) throws NoSuchElementException {
+        public void set(E e) throws NoSuchElementException {
             if (this.lastReturnedNode == null) {
                 throw new NoSuchElementException();
             }
             checkForComodification();
-            lastReturnedNode.setReparticao(r);
+            lastReturnedNode.setElement(e);
         }
 
         @Override
-        public void add(Reparticao r) {
+        public void add(E e) {
             checkForComodification();
-            DoublyLinkedList.this.addBetween(r, prevNode, nextNode);
+            DoublyLinkedList.this.addBetween(e, prevNode, nextNode);
             this.prevNode = nextNode.getPrev();
             this.lastReturnedNode = prevNode;
             expectedModCount++;
@@ -283,51 +283,50 @@ public class DoublyLinkedList<Reparticao> implements Iterable<Reparticao>, Clone
 
 //---------------- Iterable implementation ----------------
     @Override
-    public Iterator<Reparticao> iterator() {
+    public Iterator<E> iterator() {
         return new DoublyLinkedListIterator();
     }
 
-    public ListIterator<Reparticao> listIterator() {
+    public ListIterator<E> listIterator() {
         return new DoublyLinkedListIterator();
     }
 
 //---------------- nested Node class ----------------
-    private static class Node<Reparticao> {
+    private static class Node<E> {
 
-        private Reparticao reparticao;      // reference to the element stored at this node
-        private Node<Reparticao> prev;   // reference to the previous node in the list
-        private Node<Reparticao> next;   // reference to the subsequent node in the list
+        private E element;      // reference to the element stored at this node
+        private Node<E> prev;   // reference to the previous node in the list
+        private Node<E> next;   // reference to the subsequent node in the list
 
-        public Node(Reparticao r, Node<Reparticao> prev, Node<Reparticao> next) {
-            this.reparticao = r;
+        public Node(E element, Node<E> prev, Node<E> next) {
+            this.element = element;
             this.prev = prev;
             this.next = next;
         }
 
-        public Reparticao getReparticao() {
-            return reparticao;
+        public E getElement() {
+            return element;
         }
 
-        public Node<Reparticao> getPrev() {
+        public Node<E> getPrev() {
             return prev;
         }
 
-        public Node<Reparticao> getNext() {
+        public Node<E> getNext() {
             return next;
         }
 
-        public void setReparticao(Reparticao r) { // Not on the original interface. Added due to list iterator implementation
-            this.reparticao = r;
+        public void setElement(E element) { // Not on the original interface. Added due to list iterator implementation
+            this.element = element;
         }
 
-        public void setPrev(Node<Reparticao> prev) {
+        public void setPrev(Node<E> prev) {
             this.prev = prev;
         }
 
-        public void setNext(Node<Reparticao> next) {
+        public void setNext(Node<E> next) {
             this.next = next;
         }
     } //----------- end of nested Node class ----------
 
 }
-
