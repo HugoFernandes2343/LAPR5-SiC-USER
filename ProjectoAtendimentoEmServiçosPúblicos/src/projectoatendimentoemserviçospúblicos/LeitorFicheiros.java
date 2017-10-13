@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -17,13 +18,16 @@ import java.util.ArrayList;
  */
 public class LeitorFicheiros {
 
-    public static void main(String[] args) {
+    private ListaReparticao listaReparticoes;
+
+    public void LeitorFicheiros() {
+        this.listaReparticoes = new ListaReparticao();
         lerFicheiroReparticoes();
         lerFicheiroCidadoes();
         lerFicheiroSenhas();
     }
 
-    private static void lerFicheiroReparticoes() {
+    private void lerFicheiroReparticoes() {
         String fileName = "fx_repartições.txt";
 
         String line = null;
@@ -42,7 +46,9 @@ public class LeitorFicheiros {
                 for (int i = 4; i < reparticoes.length; i++) {
                     listaServicos.add(reparticoes[i]);
                 }
-                r = new Reparticao(reparticoes[1], Integer.parseInt(reparticoes[2]), Integer.parseInt(reparticoes[3]), listaServicos);
+                r = new Reparticao(reparticoes[0], Integer.parseInt(reparticoes[1]), Integer.parseInt(reparticoes[2]), listaServicos);
+                DoublyLinkedList<Reparticao> l = listaReparticoes.getListaReparticao();
+                l.addLast(r);
             }
 
             bufferedReader.close();
@@ -58,7 +64,7 @@ public class LeitorFicheiros {
         }
     }
 
-    private static void lerFicheiroCidadoes() {
+    private void lerFicheiroCidadoes() {
         String fileName = "fx_cidadaos.txt";
 
         String line = null;
@@ -73,7 +79,10 @@ public class LeitorFicheiros {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] cidadaos = line.split(",");
                 Cidadao c;
-                c = new Cidadao(cidadaos[1],Integer.parseInt(cidadaos[2]),cidadaos[3],cidadaos[4],Integer.parseInt(cidadaos[5]));
+                c = new Cidadao(cidadaos[0], Integer.parseInt(cidadaos[1]), cidadaos[2], cidadaos[3], Integer.parseInt(cidadaos[4]));
+                Reparticao r = listaReparticoes.getReparticaoPorNumero(Integer.parseInt(cidadaos[4]));
+                ListaCidadao l = r.getListaCidadao();
+                l.getListaCidadao().addLast(c);
             }
 
             bufferedReader.close();
@@ -89,34 +98,37 @@ public class LeitorFicheiros {
         }
     }
 
-    private static void lerFicheiroSenhas() {
-        String fileName = "fx_senhas.txt";
+    private void lerFicheiroSenhas() {
+        Iterator itr = this.listaReparticoes.getListaReparticao().iterator();
+        while (itr.hasNext()) {
+            Reparticao r = (Reparticao) itr.next();
+            String fileName = "Senhas_" + String.valueOf(r.getNumeroReparticao()) + ".txt";
+            String line = null;
 
-        String line = null;
+            try {
+                FileReader fileReader
+                        = new FileReader(fileName);
 
-        try {
-            FileReader fileReader
-                    = new FileReader(fileName);
+                BufferedReader bufferedReader
+                        = new BufferedReader(fileReader);
 
-            BufferedReader bufferedReader
-                    = new BufferedReader(fileReader);
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] senhas = line.split(",");
+                    Senha s;
+                    s = new Senha(senhas[1], Integer.parseInt(senhas[2]));// o que fazer ao valor do numero de contribuinte ? edit 1 : prob tem a ver com a estrutura que querem que estabeleca entre senhas e cidadao que nao  sei qual sera mas ate parece bddad
+                }
 
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] senhas = line.split(",");
-                Senha s;
-                s = new Senha(senhas[2],Integer.parseInt(senhas[3]));// o que fazer ao valor do numero de contribuinte ? edit 1 : prob tem a ver com a estrutura que querem que estabeleca entre senhas e cidadao que nao  sei qual sera mas ate parece bddad
+                bufferedReader.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println(
+                        "Unable to open file '"
+                        + fileName + "'");
+            } catch (IOException ex) {
+                System.out.println(
+                        "Error reading file '"
+                        + fileName + "'");
+
             }
-
-            bufferedReader.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '"
-                    + fileName + "'");
-        } catch (IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                    + fileName + "'");
-
         }
     }
 }

@@ -19,7 +19,7 @@ public class Reparticao {
     private int codigoPostal;
     private List<String> listaServicos;
     private ListaCidadao listaCidadao;
-//    private DoublyLinkedList<Cidadao> listaCidadao;
+    
 
     public Reparticao(String s, int n, int codigo, List<String> serv) {
         this.cidade = s;
@@ -52,7 +52,11 @@ public class Reparticao {
     public List<String> getListaServicos() {
         return listaServicos;
     }
-
+    
+    public ListaCidadao getListaCidadao(){
+        return listaCidadao;
+    }
+    
     public void setCidade(String c) {
         this.cidade = c;
     }
