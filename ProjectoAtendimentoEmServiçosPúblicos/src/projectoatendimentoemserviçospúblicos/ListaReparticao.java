@@ -91,9 +91,31 @@ public class ListaReparticao {
         Reparticao rep;
         while (itr.hasNext()) {
             rep = (Reparticao) itr.next();
-            
+
         }
 
     }
 
+    public Reparticao getListaReparticoesPorServicoECodigoPostal(Servico serv, int codigoPostal) throws CloneNotSupportedException {
+        DoublyLinkedList<Reparticao> temp = (DoublyLinkedList<Reparticao>) listaReparticao.clone();
+        Reparticao repTemp = new Reparticao();
+        Iterator itr = temp.iterator();
+        while (itr.hasNext()) {
+            repTemp = (Reparticao) itr.next();
+            if (!repTemp.checkForServico(serv)) {
+                itr.remove();
+            }
+        }
+        Reparticao repMaisProxima = new Reparticao();
+        int dif = 400;
+        itr = temp.iterator();
+        while (itr.hasNext()) {
+            repTemp = (Reparticao) itr.next();
+            if (Math.abs(repTemp.getCodigoPostal() - codigoPostal) < dif && Math.abs(repTemp.getCodigoPostal() - codigoPostal) != 0) {
+                dif = Math.abs(repTemp.getCodigoPostal() - codigoPostal);
+                repMaisProxima = repTemp;
+            }
+        }
+        return repMaisProxima;
+    }
 }

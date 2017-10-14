@@ -11,11 +11,13 @@ package projectoatendimentoemserviçospúblicos;
  */
 public class Servico {
     private String letraCodigo;
-     private ListaSenha listaSenha;
+    private ListaSenha listaSenha;
     
-    public Servico(String n, String letra){
+    public Servico(String letra){
     this.letraCodigo = letra;
     this.listaSenha = new ListaSenha();
     }
-    
+    public ListaSenha getListaSenha(){
+     return listaSenha;
+    }
 }

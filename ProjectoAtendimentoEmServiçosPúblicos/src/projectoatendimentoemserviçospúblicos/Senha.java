@@ -10,19 +10,25 @@ package projectoatendimentoemserviçospúblicos;
  * @author hugod
  */
 public class Senha {
-    // o que fazer com o numero de contribuinte que vem do ficheiro ????
 
+    
+    private int numeroContribuinte;
     private String servico;
     private int numeroOrdem;
 
-    public Senha(String s, int n) {
+    public Senha(int n, String s, int n2) {
+        this.numeroContribuinte = n;
         this.servico = s;
-        this.numeroOrdem = n;
+        this.numeroOrdem = n2;
     }
 
     public Senha() {
         this.servico = "0";
         this.numeroOrdem = 0;
+    }
+
+    public int getNumeroContribuinte() {
+        return numeroContribuinte;
     }
 
     public String getServico() {
@@ -31,6 +37,10 @@ public class Senha {
 
     public int getNumeroOrdem() {
         return numeroOrdem;
+    }
+
+    public void setNumeroContribuinte(int i) {
+        this.numeroContribuinte = i;
     }
 
     public void setServico(String s) {

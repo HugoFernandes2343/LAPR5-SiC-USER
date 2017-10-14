@@ -20,7 +20,7 @@ public class LeitorFicheiros {
 
     private ListaReparticao listaReparticoes;
 
-    public void LeitorFicheiros() {
+    public void LeitorFicheiros() throws CloneNotSupportedException {
         this.listaReparticoes = new ListaReparticao();
         lerFicheiroReparticoes();
         lerFicheiroCidadoes();
@@ -98,13 +98,12 @@ public class LeitorFicheiros {
         }
     }
 
-    private void lerFicheiroSenhas() {
+    private void lerFicheiroSenhas() throws CloneNotSupportedException {
         Iterator itr = this.listaReparticoes.getListaReparticao().iterator();
         while (itr.hasNext()) {
             Reparticao r = (Reparticao) itr.next();
             String fileName = "Senhas_" + String.valueOf(r.getNumeroReparticao()) + ".txt";
             String line = null;
-
             try {
                 FileReader fileReader
                         = new FileReader(fileName);
@@ -115,7 +114,33 @@ public class LeitorFicheiros {
                 while ((line = bufferedReader.readLine()) != null) {
                     String[] senhas = line.split(",");
                     Senha s;
-                    s = new Senha(senhas[1], Integer.parseInt(senhas[2]));// o que fazer ao valor do numero de contribuinte ? edit 1 : prob tem a ver com a estrutura que querem que estabeleca entre senhas e cidadao que nao  sei qual sera mas ate parece bddad
+                    s = new Senha(Integer.parseInt(senhas[0]), senhas[1], Integer.parseInt(senhas[2]));
+                    Servico serv = new Servico(senhas[1]);
+                    if (r.checkForCidadaoPorNumero(Integer.parseInt(senhas[0]))) {
+                        ArrayList<Servico> servList = r.getListaServicos().getListaServicos();
+                        if (r.getListaServicos().checkForServ(serv)) {
+                            for (int i = 0; i < servList.size(); i++) {
+                                if (servList.get(i).equals(serv)) {
+                                    ListaSenha lista = servList.get(i).getListaSenha();
+                                    lista.getListaSenha().add(s);
+                                }
+                            }
+                        } else {
+                            ListaCidadao listaC = r.getListaCidadao();
+                            Cidadao c = listaC.getCidadaoPorNumero(Integer.parseInt(senhas[0]));
+                            String[] codPostal = c.getCodigoPostal().split("-");
+                            int codPostalToCompare = Integer.parseInt(codPostal[0]);
+                            Reparticao reparticaoIdeal;
+                            reparticaoIdeal = listaReparticoes.getListaReparticoesPorServicoECodigoPostal(serv, codPostalToCompare);
+                            ArrayList<Servico> listaServ = reparticaoIdeal.getListaServicos().getListaServicos();
+                            for (int i = 0; i < listaServ.size(); i++) {
+                                if (listaServ.get(i).equals(serv)) {
+                                    ListaSenha lista = listaServ.get(i).getListaSenha();
+                                    lista.getListaSenha().add(s);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 bufferedReader.close();
