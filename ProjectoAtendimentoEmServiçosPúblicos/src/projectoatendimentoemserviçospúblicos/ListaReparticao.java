@@ -15,11 +15,31 @@ public class ListaReparticao {
         return listaReparticao;
     }
 
+    /**
+     * Adiciona reparticao a lista, nao faz verificacoes (para testes apenas)
+     *
+     * @param rep
+     */
+    public void addReparticao(Reparticao rep) {
+        listaReparticao.addLast(rep);
+    }
+
     public Reparticao getReparticaoPorNumero(int numero) {
         Iterator itr = listaReparticao.iterator();
         while (itr.hasNext()) {
             Reparticao temp = (Reparticao) itr.next();
             if (temp.getNumeroReparticao() == numero) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
+    public Reparticao getReparticaoPorPostal(int cod) {
+        Iterator itr = listaReparticao.iterator();
+        while (itr.hasNext()) {
+            Reparticao temp = (Reparticao) itr.next();
+            if (temp.getCodigoPostal() == cod) {
                 return temp;
             }
         }
@@ -54,12 +74,14 @@ public class ListaReparticao {
                 while (itr_cid.hasNext()) {
                     Cidadao cid = (Cidadao) itr_cid.next();
                     String post[] = cid.getCodigoPostal().split("-");
-                    if (Integer.parseInt(post[0]) == temp.getCodigoPostal()) {
+                    if (Integer.parseInt(post[0]) == rep.getCodigoPostal()) {
                         itr_cid.remove();
                         rep.getListaCidadao().getListaCidadao().addLast(cid);
+                        cid.setNumeroReparticao(rep.getNumeroReparticao());
                     }
                 }
             }
+            listaReparticao.addLast(rep);
         }
     }
 
@@ -81,22 +103,74 @@ public class ListaReparticao {
         Iterator itr_rep = rep.getListaCidadao().getListaCidadao().iterator();
         while (itr_rep.hasNext()) {
             Cidadao cid_temp = (Cidadao) itr_rep.next();
-            rep_maisProxima.getListaCidadao().getListaCidadao().addLast(cid_temp);
+            rep_maisProxima.addCidadao(cid_temp);
+            cid_temp.setNumeroReparticao(rep_maisProxima.getNumeroReparticao());
         }
 
     }
 
     public void addCidadao(Cidadao cid) {
-        Iterator itr = listaReparticao.iterator();
-        Reparticao rep;
-        while (itr.hasNext()) {
-            rep = (Reparticao) itr.next();
-
+        if (!checkDuplicatesCid(cid)) {
+            String postal[] = cid.getCodigoPostal().split("-");
+            Reparticao rep = getReparticaoPorPostal(Integer.parseInt(postal[0]));
+            if (rep != null) {
+                rep.addCidadao(cid);
+            } else {
+                Reparticao rep_temp, rep_maisProxima = new Reparticao();
+                int dif = 400;
+                Iterator itr = listaReparticao.iterator();
+                while (itr.hasNext()) {
+                    rep_temp = (Reparticao) itr.next();
+                    if (Math.abs(rep_temp.getCodigoPostal() - Integer.parseInt(postal[0])) < dif && Math.abs(rep_temp.getCodigoPostal() - Integer.parseInt(postal[0])) != 0) {
+                        dif = Math.abs(rep_temp.getCodigoPostal() - Integer.parseInt(postal[0]));
+                        rep_maisProxima = rep_temp;
+                    }
+                }
+                rep_maisProxima.addCidadao(cid);
+                cid.setNumeroReparticao(rep_maisProxima.getNumeroReparticao());
+            }
         }
-
     }
 
-    public Reparticao getListaReparticoesPorServicoECodigoPostal(Servico serv, int codigoPostal) throws CloneNotSupportedException {
+    /**
+     * retorna true se houver duplicados
+     *
+     * @param cid
+     * @return
+     */
+    public boolean checkDuplicatesCid(Cidadao cid) {
+        Iterator itr_rep = listaReparticao.iterator();
+        Reparticao rep;
+        while (itr_rep.hasNext()) {
+            rep = (Reparticao) itr_rep.next();
+            Iterator itr_cid = rep.getListaCidadao().getListaCidadao().iterator();
+            Cidadao temp_cid;
+            while (itr_cid.hasNext()) {
+                temp_cid = (Cidadao) itr_cid.next();
+                if (temp_cid.equals(cid)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    
+    public void ImprimeCids() {
+        Iterator itr_rep = listaReparticao.iterator();
+        Reparticao rep;
+        while (itr_rep.hasNext()) {
+            rep = (Reparticao) itr_rep.next();
+            Iterator itr = rep.getListaCidadao().getListaCidadao().iterator();
+            while(itr.hasNext()){
+                Cidadao cid = (Cidadao) itr.next();
+                System.out.println("Repartição: ["+rep.getCidade()+ ", "+rep.getNumeroReparticao()+ "] - Cidadão: "+ cid.getNumeroContribuinte());
+            }
+        }
+    }
+
+    public Reparticao getReparticaoPorServicoECodigoPostal(Servico serv, int codigoPostal) throws CloneNotSupportedException {
         DoublyLinkedList<Reparticao> temp = (DoublyLinkedList<Reparticao>) listaReparticao.clone();
         Reparticao repTemp = new Reparticao();
         Iterator itr = temp.iterator();

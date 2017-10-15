@@ -131,7 +131,7 @@ public class LeitorFicheiros {
                             String[] codPostal = c.getCodigoPostal().split("-");
                             int codPostalToCompare = Integer.parseInt(codPostal[0]);
                             Reparticao reparticaoIdeal;
-                            reparticaoIdeal = listaReparticoes.getListaReparticoesPorServicoECodigoPostal(serv, codPostalToCompare);
+                            reparticaoIdeal = listaReparticoes.getReparticaoPorServicoECodigoPostal(serv, codPostalToCompare);
                             ArrayList<Servico> listaServ = reparticaoIdeal.getListaServicos().getListaServicos();
                             for (int i = 0; i < listaServ.size(); i++) {
                                 if (listaServ.get(i).equals(serv)) {

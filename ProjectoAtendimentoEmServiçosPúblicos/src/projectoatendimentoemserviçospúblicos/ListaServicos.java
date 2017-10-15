@@ -23,8 +23,8 @@ public class ListaServicos {
     }
 
     public boolean checkForServ(Servico serv) {
-        for (int i = 0; i < listaServicos.size(); i++) {
-            if(listaServicos.get(i).equals(serv)){
+        for (Servico s : listaServicos) {
+            if(s.equals(serv)){
                 return true;
             }
         }

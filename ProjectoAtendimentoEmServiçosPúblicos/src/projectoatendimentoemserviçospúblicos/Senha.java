@@ -5,13 +5,14 @@
  */
 package projectoatendimentoemserviçospúblicos;
 
+import java.util.Comparator;
+
 /**
  *
  * @author hugod
  */
-public class Senha {
+public class Senha implements Comparable<Senha> {
 
-    
     private int numeroContribuinte;
     private String servico;
     private int numeroOrdem;
@@ -49,6 +50,29 @@ public class Senha {
 
     public void setNumeroOrdem(int i) {
         this.numeroOrdem = i;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Senha)) {
+            return false;
+        }
+        Senha that = (Senha) obj;
+        return numeroContribuinte == that.numeroContribuinte && servico.equalsIgnoreCase(that.servico) && numeroOrdem == that.numeroOrdem;
+    }
+
+    @Override
+    public int compareTo(Senha t) {
+        if (this.numeroOrdem < t.getNumeroOrdem()) {
+            return -1;
+        }
+        if (this.numeroOrdem > t.getNumeroOrdem()) {
+            return 1;
+        }
+        return 0;
     }
 
 }

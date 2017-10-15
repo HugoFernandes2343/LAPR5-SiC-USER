@@ -25,9 +25,9 @@ public class Reparticao {
         this.cidade = c;
         this.numeroReparticao = n;
         this.codigoPostal = codigo;
-        for (int i = 0; i < s.size() ; i++) {
-            String letra = s.get(i);
-            Servico serv = new Servico(letra);
+        listaServicos = new ListaServicos();
+        for (String str : s) {
+            Servico serv = new Servico(str);
             listaServicos.getListaServicos().add(serv);
         }
         this.listaCidadao = new ListaCidadao();
@@ -37,7 +37,8 @@ public class Reparticao {
         this.cidade = "";
         this.numeroReparticao = 0;
         this.codigoPostal = 0;
-        this.listaServicos = new  ListaServicos();
+        this.listaServicos = new ListaServicos();
+        this.listaCidadao = new ListaCidadao();
 
     }
 
@@ -53,7 +54,7 @@ public class Reparticao {
         return codigoPostal;
     }
 
-    public  ListaServicos getListaServicos() {
+    public ListaServicos getListaServicos() {
         return listaServicos;
     }
 
@@ -74,7 +75,7 @@ public class Reparticao {
     }
 
     public void setListaServicos(List<String> s) {
-       for (int i = 0; i < s.size() ; i++) {
+        for (int i = 0; i < s.size(); i++) {
             String letra = s.get(i);
             Servico serv = new Servico(letra);
             listaServicos.getListaServicos().add(serv);
@@ -107,11 +108,8 @@ public class Reparticao {
         }
         return false;
     }
-    
-    public boolean checkForServico(Servico serv){
-        if(listaServicos.checkForServ(serv)){
-        return true;
-        }
-        return false;
+
+    public boolean checkForServico(Servico serv) {
+        return listaServicos.checkForServ(serv);
     }
 }
