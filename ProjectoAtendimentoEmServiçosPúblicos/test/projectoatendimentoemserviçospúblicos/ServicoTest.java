@@ -138,7 +138,7 @@ public class ServicoTest {
         Servico instance= r1.getListaServicos().getListaServicos().get(0);
         instance.getListaSenha().getListaSenha().add(s1);
         instance.getListaSenha().getListaSenha().add(s2);
-        instance.removeSenhaDoCidadao(c1);
+        instance.RemoveSenhaDoCidadao(c1);
         boolean expResult = false;
         boolean result = instance.getListaSenha().getListaSenha().peek().getNumeroContribuinte() == 111222333;
         assertEquals(expResult,result);

@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -275,8 +276,6 @@ public class ListaReparticaoTest {
         Senha s3 = new Senha(777777777, "a", 3);
         Senha s4 = new Senha(666666666, "b", 1);
 
-        Reparticao rep2 = new Reparticao("braga", 2222, 4200, serv);
-
         for (Servico s : rep.getListaServicos().getListaServicos()) {
             if (s.getLetraCodigo().equalsIgnoreCase("a")) {
                 s.getListaSenha().getListaSenha().add(s1);
@@ -300,6 +299,7 @@ public class ListaReparticaoTest {
         }
         assertEquals(expResult, result);
     }
+
     /**
      * Test of AbandonarFilas method, of class ListaReparticao.
      */
@@ -307,33 +307,54 @@ public class ListaReparticaoTest {
     public void testAbandonarFilas() {
         System.out.println("AbandonarFilas");
         Cidadao c1 = new Cidadao("Ana", 111222333, "ana@gmail.com", "4200-072", 1235);
-        Cidadao c2 = new Cidadao( "Berta",223344,"berta@gmail.com","4200-071",1234);
+        Cidadao c2 = new Cidadao("Berta", 223344, "berta@gmail.com", "4200-071", 1235);
         ListaReparticao instance = new ListaReparticao();
         List<String> servR1 = new ArrayList<>();
         List<String> servR2 = new ArrayList<>();
         servR1.add("A");
         servR1.add("B");
-        servR2.add("A");
-        servR2.add("B");
-        servR2.add("C");
-        Reparticao r1 = new Reparticao("Maia", 1235, 4470,servR1);
-        Reparticao r2 = new Reparticao("Porto", 1234, 4471,servR2);
+//        servR2.add("A");
+//        servR2.add("B");
+//        servR2.add("C");
+        Reparticao r1 = new Reparticao("Maia", 1235, 4470, servR1);
+//        Reparticao r2 = new Reparticao("Porto", 1234, 4471, servR2);
+
         r1.addCidadao(c1);
-        r2.addCidadao(c2);
-        Senha s1 = new Senha(111222333,"A",1);
-        Senha s2 = new Senha(333222111,"A",2);
-        Senha s3 = new Senha(111222333,"B",1);
-        Senha s4 = new Senha(444555666,"B",2);
-        Servico serv1= r1.getListaServicos().getListaServicos().get(0);
-        Servico serv2= r2.getListaServicos().getListaServicos().get(1);
+        r1.addCidadao(c2);
+        Senha s1 = new Senha(111222333, "A", 1);
+        Senha s2 = new Senha(223344, "A", 2);
+        for (Servico s : r1.getListaServicos().getListaServicos()) {
+            if (s.getLetraCodigo().equalsIgnoreCase("a")) {
+                s.getListaSenha().getListaSenha().add(s1);
+                s.getListaSenha().getListaSenha().add(s2);
+            }
+        }
+        instance.addReparticao(r1);
+
+        PriorityQueue<Senha> senhaListExp = new PriorityQueue<>();
+        senhaListExp.add(s1);
+
+        instance.AbandonarFilas(c1);
+        PriorityQueue<Senha> senhaRes = new PriorityQueue<>();
+        for (Servico ser : instance.getReparticaoPorNumero(1235).getListaServicos().getListaServicos()) {
+            if (ser.getLetraCodigo().equalsIgnoreCase("a")) {
+                senhaRes = ser.getListaSenha().getListaSenha();
+            }
+        }
+
+        Servico serv1 = r1.getListaServicos().getListaServicos().get(0);
         serv1.getListaSenha().getListaSenha().add(s1);
         serv1.getListaSenha().getListaSenha().add(s2);
-        serv2.getListaSenha().getListaSenha().add(s3);
-        serv2.getListaSenha().getListaSenha().add(s4);
-        instance.AbandonarFilas(c1);
+
         boolean expResult = true;
-        boolean result = (serv1.getListaSenha().getListaSenha().peek().getNumeroContribuinte() ==333222111 || serv2.getListaSenha().getListaSenha().peek().getNumeroContribuinte() == 444555666);
-        assertEquals(expResult,result);
+        boolean result = false;
+        Iterator itr = senhaRes.iterator();
+        for (Senha s : senhaListExp) {
+            Senha temp = (Senha) itr.next();
+            result = temp.equals(s);
+        }
+        
+        assertEquals(expResult, result);
 
     }
 

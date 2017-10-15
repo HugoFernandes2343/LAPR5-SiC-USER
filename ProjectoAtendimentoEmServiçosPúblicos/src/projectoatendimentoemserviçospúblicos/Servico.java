@@ -48,7 +48,7 @@ public class Servico {
         }
         return false;
     }
-    public void removeSenhaDoCidadao(Cidadao c) {
+    public void RemoveSenhaDoCidadao(Cidadao c) {
         Iterator itr=listaSenha.getListaSenha().iterator();
         Senha senhaTemp = new Senha();
         while(itr.hasNext()){

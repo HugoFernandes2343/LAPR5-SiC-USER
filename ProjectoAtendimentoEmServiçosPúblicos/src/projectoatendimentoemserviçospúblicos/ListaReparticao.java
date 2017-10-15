@@ -230,11 +230,10 @@ public class ListaReparticao {
             repTemp = (Reparticao) itr.next();
             ArrayList<Servico> listServ = repTemp.getListaServicos().getListaServicos();
             for (int i = 0; i < listServ.size(); i++) {
-                if (listServ.get(i).checkSenhasDoCidadao(c)) {
-                    listServ.get(i).removeSenhaDoCidadao(c);
+                if (listServ.get(i).CheckSenhasDoCidadao(c)) {
+                    listServ.get(i).RemoveSenhaDoCidadao(c);
                 }
             }
-
         }
     }
 }
