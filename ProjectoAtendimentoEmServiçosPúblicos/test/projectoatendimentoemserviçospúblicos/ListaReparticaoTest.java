@@ -3,6 +3,7 @@ package projectoatendimentoemserviçospúblicos;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -254,6 +255,49 @@ public class ListaReparticaoTest {
         servTest = new Servico("b");
         repResult = instance.getReparticaoPorServicoECodigoPostal(servTest, 4482);
         result = repResult.equals(rep2);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of servicoComMaiorProcura method, of class ListaReparticao.
+     */
+    @Test
+    public void testServicoComMaiorProcura() {
+        System.out.println("servicoComMaiorProcura");
+        ListaReparticao instance = new ListaReparticao();
+        List<String> serv = new ArrayList<>();
+        serv.add("a");
+        serv.add("b");
+        Reparticao rep = new Reparticao("porto", 1111, 4490, serv);
+        Servico serv1 = new Servico("a");
+        Senha s1 = new Senha(999999999, "a", 1);
+        Senha s2 = new Senha(888888888, "a", 2);
+        Senha s3 = new Senha(777777777, "a", 3);
+        Senha s4 = new Senha(666666666, "b", 1);
+
+        Reparticao rep2 = new Reparticao("braga", 2222, 4200, serv);
+
+        for (Servico s : rep.getListaServicos().getListaServicos()) {
+            if (s.getLetraCodigo().equalsIgnoreCase("a")) {
+                s.getListaSenha().getListaSenha().add(s1);
+                s.getListaSenha().getListaSenha().add(s2);
+                s.getListaSenha().getListaSenha().add(s3);
+            } else {
+                s.getListaSenha().getListaSenha().add(s4);
+            }
+        }
+
+        instance.addReparticao(rep);
+        List<Servico> listServExpRes = new ArrayList<>();
+        listServExpRes.add(serv1);
+
+        boolean expResult = true;
+        boolean result = false;
+        Iterator itr = listServExpRes.iterator();
+        for (Servico s : instance.servicoComMaiorProcura()) {
+            Servico temp = (Servico) itr.next();
+            result = temp.equals(s);
+        }
         assertEquals(expResult, result);
     }
 

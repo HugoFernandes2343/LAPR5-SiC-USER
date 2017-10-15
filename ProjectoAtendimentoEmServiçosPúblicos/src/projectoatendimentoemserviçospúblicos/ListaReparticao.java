@@ -1,7 +1,10 @@
 package projectoatendimentoemserviçospúblicos;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ListaReparticao {
 
@@ -154,18 +157,16 @@ public class ListaReparticao {
         }
         return false;
     }
-    
-    
-    
+
     public void ImprimeCids() {
         Iterator itr_rep = listaReparticao.iterator();
         Reparticao rep;
         while (itr_rep.hasNext()) {
             rep = (Reparticao) itr_rep.next();
             Iterator itr = rep.getListaCidadao().getListaCidadao().iterator();
-            while(itr.hasNext()){
+            while (itr.hasNext()) {
                 Cidadao cid = (Cidadao) itr.next();
-                System.out.println("Repartição: ["+rep.getCidade()+ ", "+rep.getNumeroReparticao()+ "] - Cidadão: "+ cid.getNumeroContribuinte());
+                System.out.println("Repartição: [" + rep.getCidade() + ", " + rep.getNumeroReparticao() + "] - Cidadão: " + cid.getNumeroContribuinte());
             }
         }
     }
@@ -192,4 +193,34 @@ public class ListaReparticao {
         }
         return repMaisProxima;
     }
+
+    public List<Servico> servicoComMaiorProcura() {
+        Map<Servico, Integer> mapa = new HashMap<>();
+        Iterator itr = listaReparticao.iterator();
+        while (itr.hasNext()) {
+            Reparticao rep = (Reparticao) itr.next();
+            for (Servico s : rep.getListaServicos().getListaServicos()) {
+                if (!mapa.containsKey(s)) {
+                    mapa.put(s, s.getListaSenha().getListaSenha().size());
+                } else {
+                    int soma = s.getListaSenha().getListaSenha().size();
+                    soma = soma + mapa.get(s);
+                    mapa.replace(s, soma);
+                }
+            }
+        }
+        List<Servico> listaMax = new ArrayList<>();
+        int max = 0;
+        for (Map.Entry<Servico, Integer> entry : mapa.entrySet()) {
+            if (entry.getValue() > max) {
+                listaMax = new ArrayList<>();
+                listaMax.add(entry.getKey());
+                max = entry.getValue();
+            } else if (entry.getValue() == max) {
+                listaMax.add(entry.getKey());
+            }
+        }
+        return listaMax;
+    }
+
 }

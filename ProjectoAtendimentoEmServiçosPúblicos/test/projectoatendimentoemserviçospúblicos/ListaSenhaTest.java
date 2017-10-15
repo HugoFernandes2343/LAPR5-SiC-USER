@@ -45,18 +45,21 @@ public class ListaSenhaTest {
     @Test
     public void testGetListaSenha() {
         System.out.println("getListaSenha");
-        Servico instance = new Servico("a");
         Senha se = new Senha(999999999, "a", 1);
         Senha s1 = new Senha(888888888, "a", 2);
+
+        Servico instance = new Servico("a");
         instance.getListaSenha().getListaSenha().add(se);
         instance.getListaSenha().getListaSenha().add(s1);
+        
         PriorityQueue<Senha> senhaList = new PriorityQueue<>();
         senhaList.add(se);
         senhaList.add(s1);
+        
         boolean expResult = true;
         boolean result = false;
         Iterator itr = senhaList.iterator();
-        for (Senha s : senhaList) {
+        for (Senha s : instance.getListaSenha().getListaSenha()) {
                 Senha temp = (Senha) itr.next();
                 result = temp.equals(s);
         }
