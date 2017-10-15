@@ -80,9 +80,7 @@ public class LeitorFicheiros {
                 String[] cidadaos = line.split(",");
                 Cidadao c;
                 c = new Cidadao(cidadaos[0], Integer.parseInt(cidadaos[1]), cidadaos[2], cidadaos[3], Integer.parseInt(cidadaos[4]));
-                Reparticao r = listaReparticoes.getReparticaoPorNumero(Integer.parseInt(cidadaos[4]));
-                ListaCidadao l = r.getListaCidadao();
-                l.getListaCidadao().addLast(c);
+                listaReparticoes.addCidadao(c);
             }
 
             bufferedReader.close();
