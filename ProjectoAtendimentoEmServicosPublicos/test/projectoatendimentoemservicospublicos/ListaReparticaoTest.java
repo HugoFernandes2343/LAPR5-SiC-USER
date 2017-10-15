@@ -1,15 +1,9 @@
-package projectoatendimentoemserviçospúblicos;
+package projectoatendimentoemservicospublicos;
 
-import projectoatendimentoemservicospublicos.DoublyLinkedList;
-import projectoatendimentoemservicospublicos.Servico;
-import projectoatendimentoemservicospublicos.ListaReparticao;
-import projectoatendimentoemservicospublicos.Reparticao;
-import projectoatendimentoemservicospublicos.Senha;
-import projectoatendimentoemservicospublicos.Cidadao;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
