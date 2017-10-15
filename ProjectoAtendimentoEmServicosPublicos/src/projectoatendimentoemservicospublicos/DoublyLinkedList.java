@@ -12,7 +12,7 @@ import java.util.ConcurrentModificationException;
 
 /**
  *
- * @author DEI-ISEP
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  * @param <E> Generic list element type
  */
 public class DoublyLinkedList<E> implements Iterable<E>, Cloneable {

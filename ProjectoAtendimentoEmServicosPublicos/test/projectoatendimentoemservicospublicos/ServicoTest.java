@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,7 +22,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Norberto Sousa
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class ServicoTest {
 

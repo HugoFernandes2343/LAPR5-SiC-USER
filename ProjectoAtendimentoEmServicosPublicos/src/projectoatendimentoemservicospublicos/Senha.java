@@ -5,11 +5,10 @@
  */
 package projectoatendimentoemservicospublicos;
 
-import java.util.Comparator;
 
 /**
  *
- * @author hugod
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class Senha implements Comparable<Senha> {
 

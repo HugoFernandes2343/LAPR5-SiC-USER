@@ -14,7 +14,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Norberto Sousa
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class LeitorFicheirosTest {
 

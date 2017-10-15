@@ -3,6 +3,10 @@ package projectoatendimentoemservicospublicos;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ *
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
+ */
 public class ListaSenha {
 
     private PriorityQueue<Senha> listaSenha;

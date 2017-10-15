@@ -6,6 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
+ */
 public class ListaReparticao {
 
     private DoublyLinkedList<Reparticao> listaReparticao;

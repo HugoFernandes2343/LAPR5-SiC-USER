@@ -5,13 +5,13 @@
  */
 package projectoatendimentoemservicospublicos;
 
-import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.List;
 
 /**
  *
- * @author hugod
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class Reparticao {
 

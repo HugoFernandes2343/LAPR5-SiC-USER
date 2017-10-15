@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Asus
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class ListaCidadao {
     

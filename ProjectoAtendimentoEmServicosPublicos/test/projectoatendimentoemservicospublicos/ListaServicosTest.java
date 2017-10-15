@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Norberto Sousa
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class ListaServicosTest {
 

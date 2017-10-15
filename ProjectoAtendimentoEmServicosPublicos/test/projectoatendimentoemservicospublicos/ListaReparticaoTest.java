@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Asus
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class ListaReparticaoTest {
 
