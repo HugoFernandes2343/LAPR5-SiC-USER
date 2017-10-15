@@ -5,6 +5,8 @@
  */
 package projectoatendimentoemserviçospúblicos;
 
+import projectoatendimentoemservicospublicos.Servico;
+import projectoatendimentoemservicospublicos.Senha;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import org.junit.After;

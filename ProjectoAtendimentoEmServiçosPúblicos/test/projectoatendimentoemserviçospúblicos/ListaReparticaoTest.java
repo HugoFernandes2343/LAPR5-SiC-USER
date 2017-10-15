@@ -1,10 +1,18 @@
 package projectoatendimentoemserviçospúblicos;
 
+import projectoatendimentoemservicospublicos.DoublyLinkedList;
+import projectoatendimentoemservicospublicos.Servico;
+import projectoatendimentoemservicospublicos.ListaReparticao;
+import projectoatendimentoemservicospublicos.Reparticao;
+import projectoatendimentoemservicospublicos.Senha;
+import projectoatendimentoemservicospublicos.Cidadao;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -348,11 +356,69 @@ public class ListaReparticaoTest {
             Senha temp = (Senha) itr.next();
             result = temp.equals(s);
         }
-        
+
         assertEquals(expResult, result);
 
     }
-    
 
+    /**
+     * Test of getUtilizacaoRep method, of class ListaReparticao.
+     */
+    @Test
+    public void testGetUtilizacaoRep() {
+        System.out.println("getUtilizacaoRep");
+
+        List<String> serv = new ArrayList<>();
+        serv.add("A");
+
+        ListaReparticao instance = new ListaReparticao();
+
+        Cidadao c1 = new Cidadao("Ana", 111222333, "ana@gmail.com", "4200-072", 1235);
+        Cidadao c2 = new Cidadao("Berta", 223344, "berta@gmail.com", "4200-071", 1235);
+        Cidadao c3 = new Cidadao("Manuel", 2235324, "manuel@gmail.com", "4200-070", 1235);
+        Reparticao rep = new Reparticao("porto", 1235, 4490, serv);
+        rep.addCidadao(c1);
+        rep.addCidadao(c2);
+        rep.addCidadao(c3);
+
+        System.out.println(rep.getListaCidadao().getListaCidadao().size());
+        Senha s1 = new Senha(111222333, "A", 1);
+        Senha s2 = new Senha(223344, "A", 2);
+        Senha s3 = new Senha(2235324, "A", 3);
+
+        for (Servico s : rep.getListaServicos().getListaServicos()) {
+            if (s.getLetraCodigo().equalsIgnoreCase("A")) {
+                s.getListaSenha().getListaSenha().add(s1);
+                s.getListaSenha().getListaSenha().add(s2);
+                s.getListaSenha().getListaSenha().add(s3);
+            }
+        }
+        instance.addReparticao(rep);
+
+        String hora = "9h30";
+        Servico se = new Servico("A");
+
+        List<Cidadao> listExp = new ArrayList<>();
+        listExp.add(c1);
+        listExp.add(c2);
+        listExp.add(c3);
+
+        Map<Servico, List<Cidadao>> mapRes = instance.getUtilizacaoRep(rep, hora);
+
+        boolean expResult = true;
+        boolean result = false;
+
+        Iterator itr = listExp.iterator();
+        for (Map.Entry<Servico, List<Cidadao>> entry : mapRes.entrySet()) {
+            System.out.println("teste: "+entry.getValue().size());
+            for (Cidadao cid : entry.getValue()) {
+                Cidadao cidTemp = (Cidadao) itr.next();
+                result = cidTemp.equals(cid);
+            }
+        }
+
+        assertEquals(expResult, result);
+
+    }
 
 }

@@ -5,6 +5,10 @@
  */
 package projectoatendimentoemserviçospúblicos;
 
+import projectoatendimentoemservicospublicos.Servico;
+import projectoatendimentoemservicospublicos.Reparticao;
+import projectoatendimentoemservicospublicos.Cidadao;
+import projectoatendimentoemservicospublicos.Senha;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

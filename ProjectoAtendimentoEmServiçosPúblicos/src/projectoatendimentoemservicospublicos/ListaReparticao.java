@@ -1,4 +1,4 @@
-package projectoatendimentoemserviçospúblicos;
+package projectoatendimentoemservicospublicos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -236,22 +236,22 @@ public class ListaReparticao {
             }
         }
     }
-    
-        public Map<Servico, List<Cidadao>> getUtilizacaoRep(Reparticao rep, String hora){
+
+    public Map<Servico, List<Cidadao>> getUtilizacaoRep(Reparticao rep, String hora) {
         String[] tempHora = hora.split("h");
         int minutos = Integer.parseInt(tempHora[0]) * 60 + Integer.parseInt(tempHora[1]);
-        int tempoDesdeAbertura = minutos -540;
-        int pessoasAtendidas = tempoDesdeAbertura/10;
+        int tempoDesdeAbertura = minutos - 540;
+        int pessoasAtendidas = tempoDesdeAbertura / 10;
         int cont;
-        
+
         List<Cidadao> listaCid;
-        Map <Servico, List<Cidadao>> mapa = new HashMap<>();
-        
-        for (Servico s : rep.getListaServicos().getListaServicos()){
+        Map<Servico, List<Cidadao>> mapa = new HashMap<>();
+
+        for (Servico s : rep.getListaServicos().getListaServicos()) {
             listaCid = new ArrayList<>();
-            cont =0;
+            cont = 0;
             Iterator itr = s.getListaSenha().getListaSenha().iterator();
-            while(itr.hasNext() && cont < pessoasAtendidas){
+            while (itr.hasNext() && cont < pessoasAtendidas) {
                 cont++;
                 Senha temp = (Senha) itr.next();
                 listaCid.add(rep.getListaCidadao().getCidadaoPorNumero(temp.getNumeroContribuinte()));

@@ -5,6 +5,9 @@
  */
 package projectoatendimentoemserviçospúblicos;
 
+import projectoatendimentoemservicospublicos.DoublyLinkedList;
+import projectoatendimentoemservicospublicos.Reparticao;
+import projectoatendimentoemservicospublicos.Cidadao;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

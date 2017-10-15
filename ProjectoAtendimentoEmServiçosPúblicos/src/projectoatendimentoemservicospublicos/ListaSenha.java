@@ -1,4 +1,4 @@
-package projectoatendimentoemserviçospúblicos;
+package projectoatendimentoemservicospublicos;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

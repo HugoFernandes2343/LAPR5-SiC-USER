@@ -5,6 +5,8 @@
  */
 package projectoatendimentoemserviçospúblicos;
 
+import projectoatendimentoemservicospublicos.Servico;
+import projectoatendimentoemservicospublicos.Reparticao;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
