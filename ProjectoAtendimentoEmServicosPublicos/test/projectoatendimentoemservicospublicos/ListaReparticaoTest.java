@@ -136,7 +136,6 @@ public class ListaReparticaoTest {
 
         boolean expResult = true;
         boolean result = listExp.equals(listResult);
-        System.out.println(listResult.toString());
         assertEquals(expResult, result);
     }
 
@@ -375,7 +374,6 @@ public class ListaReparticaoTest {
         rep.addCidadao(c2);
         rep.addCidadao(c3);
 
-        System.out.println(rep.getListaCidadao().getListaCidadao().size());
         Senha s1 = new Senha(111222333, "A", 1);
         Senha s2 = new Senha(223344, "A", 2);
         Senha s3 = new Senha(2235324, "A", 3);
@@ -404,7 +402,6 @@ public class ListaReparticaoTest {
 
         Iterator itr = listExp.iterator();
         for (Map.Entry<Servico, List<Cidadao>> entry : mapRes.entrySet()) {
-            System.out.println("teste: "+entry.getValue().size());
             for (Cidadao cid : entry.getValue()) {
                 Cidadao cidTemp = (Cidadao) itr.next();
                 result = cidTemp.equals(cid);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="AsusPC" name="projectoatendimentoemservicospublicos.ListaReparticaoTest" skipped="0" tests="14" time="0.121" timestamp="2017-10-15T21:33:44">
+<testsuite errors="0" failures="0" hostname="AsusPC" name="projectoatendimentoemservicospublicos.ListaReparticaoTest" skipped="0" tests="14" time="0.13" timestamp="2017-10-15T22:05:50">
   <properties>
     <property name="netbeans.autoupdate.country" value="PT" />
     <property name="nb.wait.for.caches" value="true" />
@@ -40,7 +40,7 @@
     <property name="user.name" value="Asus" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner projectoatendimentoemservicospublicos.ListaReparticaoTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\test\results\TEST-projectoatendimentoemservicospublicos.ListaReparticaoTest.xml crashfile=C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\junitvmwatcher2870036452892550112.properties propsfile=C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\junit8503494511237189711.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner projectoatendimentoemservicospublicos.ListaReparticaoTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\test\results\TEST-projectoatendimentoemservicospublicos.ListaReparticaoTest.xml crashfile=C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\junitvmwatcher5599753043393999811.properties propsfile=C:\Users\Asus\Desktop\Isep\ESINF\Trabalho\ProjectoAtendimentoEmServicosPublicos\build\junit3773248538438457480.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -310,19 +310,19 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testImprimeCids" time="0.009" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testRemoveReparticao" time="0.001" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testImprimeCids" time="0.012" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testRemoveReparticao" time="0.0" />
   <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testAbandonarFilas" time="0.003" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testServicoComMaiorProcura" time="0.0" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testServicoComMaiorProcura" time="0.001" />
   <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testCheckDuplicates" time="0.0" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testAddReparticao" time="0.001" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetListaReparticao" time="0.001" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetReparticaoPorServicoECodigoPostal" time="0.0" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testNovaReparticao" time="0.0" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetUtilizacaoRep" time="0.0" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testAddReparticao" time="0.0" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetListaReparticao" time="0.0" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetReparticaoPorServicoECodigoPostal" time="0.001" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testNovaReparticao" time="0.001" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetUtilizacaoRep" time="0.001" />
   <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetReparticaoPorNumero" time="0.001" />
   <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testGetReparticaoPorPostal" time="0.001" />
-  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testCheckDuplicatesCid" time="0.001" />
+  <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testCheckDuplicatesCid" time="0.0" />
   <testcase classname="projectoatendimentoemservicospublicos.ListaReparticaoTest" name="testAddCidadao" time="0.0" />
   <system-out><![CDATA[ImprimeCids
 RemoveReparticao
@@ -333,10 +333,7 @@ addReparticao
 getListaReparticao
 getListaReparticoesPorServicoECodigoPostal
 NovaReparticao
-projectoatendimentoemservicospublicos.DoublyLinkedList@36aa7bc2
 getUtilizacaoRep
-3
-teste: 3
 getReparticaoPorNumero
 getReparticaoPorPostal
 checkDuplicatesCid
