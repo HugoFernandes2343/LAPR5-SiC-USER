@@ -19,6 +19,10 @@ import java.util.Iterator;
 public class LeitorFicheiros {
 
     private ListaReparticao listaReparticoes;
+    
+    public ListaReparticao getListaReparticao(){
+        return listaReparticoes;
+    }
 
     public void LeitorFicheiros() throws CloneNotSupportedException {
         this.listaReparticoes = new ListaReparticao();

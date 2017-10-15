@@ -88,7 +88,6 @@ public class ServicoTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
         Servico instance1 = new Servico("a");
         Servico instance2 = new Servico("b");
         boolean expResult = false;

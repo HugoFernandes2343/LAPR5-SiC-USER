@@ -87,7 +87,7 @@ public class ListaReparticao {
 
     public void RemoveReparticao(Reparticao rep) {
         Reparticao rep_temp, rep_maisProxima = new Reparticao();
-        int dif = 400;
+        int dif = 4000;
         Iterator itr = listaReparticao.iterator();
         while (itr.hasNext()) {
             rep_temp = (Reparticao) itr.next();
@@ -117,7 +117,7 @@ public class ListaReparticao {
                 rep.addCidadao(cid);
             } else {
                 Reparticao rep_temp, rep_maisProxima = new Reparticao();
-                int dif = 400;
+                int dif = 4000;
                 Iterator itr = listaReparticao.iterator();
                 while (itr.hasNext()) {
                     rep_temp = (Reparticao) itr.next();
@@ -181,7 +181,7 @@ public class ListaReparticao {
             }
         }
         Reparticao repMaisProxima = new Reparticao();
-        int dif = 400;
+        int dif = 4000;
         itr = temp.iterator();
         while (itr.hasNext()) {
             repTemp = (Reparticao) itr.next();

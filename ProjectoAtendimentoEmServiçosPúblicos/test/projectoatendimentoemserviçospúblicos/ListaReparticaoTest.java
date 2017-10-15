@@ -244,9 +244,6 @@ public class ListaReparticaoTest {
         instance.addReparticao(rep1);
         instance.addReparticao(rep2);
         instance.addReparticao(rep3);
-        for (Servico s : rep3.getListaServicos().getListaServicos()) {
-            System.out.println(s.getLetraCodigo());
-        }
 
         Servico servTest = new Servico("c");
         boolean expResult = true;
