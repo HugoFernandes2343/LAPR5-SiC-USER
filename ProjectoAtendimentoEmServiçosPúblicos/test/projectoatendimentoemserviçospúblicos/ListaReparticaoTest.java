@@ -310,14 +310,9 @@ public class ListaReparticaoTest {
         Cidadao c2 = new Cidadao("Berta", 223344, "berta@gmail.com", "4200-071", 1235);
         ListaReparticao instance = new ListaReparticao();
         List<String> servR1 = new ArrayList<>();
-        List<String> servR2 = new ArrayList<>();
         servR1.add("A");
         servR1.add("B");
-//        servR2.add("A");
-//        servR2.add("B");
-//        servR2.add("C");
         Reparticao r1 = new Reparticao("Maia", 1235, 4470, servR1);
-//        Reparticao r2 = new Reparticao("Porto", 1234, 4471, servR2);
 
         r1.addCidadao(c1);
         r1.addCidadao(c2);
@@ -357,5 +352,7 @@ public class ListaReparticaoTest {
         assertEquals(expResult, result);
 
     }
+    
+
 
 }
