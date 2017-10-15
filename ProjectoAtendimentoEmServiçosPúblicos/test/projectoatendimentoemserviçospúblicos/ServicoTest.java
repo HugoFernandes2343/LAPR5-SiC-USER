@@ -94,5 +94,53 @@ public class ServicoTest {
         boolean result = instance1.equals(instance2);
         assertEquals(expResult, result);
     }
+    
+    /**
+     * Test of checkSenhasDoCidadao method, of class Servico.
+     */
+    @Test
+    public void testCheckSenhasDoCidadao() {
+        System.out.println("checkSenhasDoCidadao");
+        List<String> servR1 = new ArrayList<>();
+        List<String> servR2 = new ArrayList<>();
+        servR1.add("A");
+        servR1.add("B");
+        servR2.add("A");
+        servR2.add("B");
+        servR2.add("C");
+        Reparticao r1 = new Reparticao("Maia", 1235, 4470,servR1);
+        Cidadao c1 = new Cidadao("Ana", 111222333, "ana@gmail.com", "4200-072", 1235);
+        r1.addCidadao(c1);
+        Senha s1 = new Senha(111222333,"A",1);
+        Senha s2 = new Senha(333222111,"A",2);
+        Servico instance= r1.getListaServicos().getListaServicos().get(0);
+        instance.getListaSenha().getListaSenha().add(s1);
+        instance.getListaSenha().getListaSenha().add(s2);
+        boolean expResult = true;
+        boolean result = instance.CheckSenhasDoCidadao(c1);
+        assertEquals(expResult, result);
+    }
 
+    /**
+     * Test of removeSenhaDoCidadao method, of class Servico.
+     */
+    @Test
+    public void testRemoveSenhaDoCidadao() {
+        System.out.println("removeSenhaDoCidadao");
+        List<String> servR1 = new ArrayList<>();
+        servR1.add("A");
+        servR1.add("B");
+        Reparticao r1 = new Reparticao("Maia", 1235, 4470,servR1);
+        Cidadao c1 = new Cidadao("Ana", 111222333, "ana@gmail.com", "4200-072", 1235);
+        r1.addCidadao(c1);
+        Senha s1 = new Senha(111222333,"A",1);
+        Senha s2 = new Senha(333222111,"A",2);
+        Servico instance= r1.getListaServicos().getListaServicos().get(0);
+        instance.getListaSenha().getListaSenha().add(s1);
+        instance.getListaSenha().getListaSenha().add(s2);
+        instance.removeSenhaDoCidadao(c1);
+        boolean expResult = false;
+        boolean result = instance.getListaSenha().getListaSenha().peek().getNumeroContribuinte() == 111222333;
+        assertEquals(expResult,result);
+    }
 }

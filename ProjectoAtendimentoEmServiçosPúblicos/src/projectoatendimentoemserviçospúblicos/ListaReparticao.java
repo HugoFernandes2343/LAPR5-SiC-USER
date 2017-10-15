@@ -223,4 +223,18 @@ public class ListaReparticao {
         return listaMax;
     }
 
+    public void AbandonarFilas(Cidadao c) {
+        Iterator itr = listaReparticao.iterator();
+        Reparticao repTemp = new Reparticao();
+        while (itr.hasNext()) {
+            repTemp = (Reparticao) itr.next();
+            ArrayList<Servico> listServ = repTemp.getListaServicos().getListaServicos();
+            for (int i = 0; i < listServ.size(); i++) {
+                if (listServ.get(i).checkSenhasDoCidadao(c)) {
+                    listServ.get(i).removeSenhaDoCidadao(c);
+                }
+            }
+
+        }
+    }
 }
