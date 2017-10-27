@@ -5,6 +5,8 @@
  */
 package gameproject;
 
+import java.util.Objects;
+
 /**
  *
  * @author hugod
@@ -89,5 +91,16 @@ public class Aliance {
             return false;
         }
         return second.equals(that.second);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.priv ? 1 : 0);
+        hash = 67 * hash + Float.floatToIntBits(this.compatibilityFactor);
+        hash = 67 * hash + Float.floatToIntBits(this.power);
+        hash = 67 * hash + Objects.hashCode(this.first);
+        hash = 67 * hash + Objects.hashCode(this.second);
+        return hash;
     }
 }

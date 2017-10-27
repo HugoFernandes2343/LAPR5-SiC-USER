@@ -55,7 +55,7 @@ public class Character {
             return false;
         }
         
-        return name == that.name;
+        return name.equals(that.name);
         
     }
 
