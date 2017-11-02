@@ -29,46 +29,47 @@ public class Aliance {
 
     public Aliance() {
     }
-    
-    public boolean getPriv(){
-    return priv;
+
+    public boolean getPriv() {
+        return priv;
     }
-    public float getCompatibilityFactor(){
-    return compatibilityFactor;
+
+    public float getCompatibilityFactor() {
+        return compatibilityFactor;
     }
-    
-    public float getPower(){
-    return power;
+
+    public float getPower() {
+        return power;
     }
-    
-    public Character getFirstCharacter(){
-    return first;
+
+    public Character getFirstCharacter() {
+        return first;
     }
-    
-    public Character getSecondCharacter(){
-    return second;
+
+    public Character getSecondCharacter() {
+        return second;
     }
-    
-    public void setPriv(boolean p){
+
+    public void setPriv(boolean p) {
         this.priv = p;
     }
-    
-    public void setCompatibilityFactor(float cf){
+
+    public void setCompatibilityFactor(float cf) {
         this.compatibilityFactor = cf;
     }
-    
-    public void setPower(float p){
+
+    public void setPower(float p) {
         this.power = p;
     }
-    
-    public void setFirstCharacter(Character f){
-    this.first = f;
+
+    public void setFirstCharacter(Character f) {
+        this.first = f;
     }
-    
-    public void setSecondCharacter(Character s){
-    this.second = s;
+
+    public void setSecondCharacter(Character s) {
+        this.second = s;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

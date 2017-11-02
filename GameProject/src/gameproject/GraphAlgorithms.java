@@ -116,8 +116,7 @@ public class GraphAlgorithms {
     }
 
     /**
-     * ADICIONEI: ver pág 41 e 42 da Teórica
-     *
+     * 
      * All paths between two vertices Calls recursive version of the method.
      *
      * @param graph Graph object
@@ -157,7 +156,7 @@ public class GraphAlgorithms {
      * @param path LinkedList with paths (queues)
      *
      */
-    static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
+    public static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
     //condição de paragem...qd o destino é igual ao source(o source muda a cada chamada recursiva)
         //adiciono o caminho encontrado e o método pára
         if (sourceIdx == destIdx) {

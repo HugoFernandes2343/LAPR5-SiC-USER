@@ -12,6 +12,7 @@ import java.util.Objects;
  * @author hugod
  */
 public class Character {
+
     private String name;
     private int strength;
 
@@ -40,8 +41,8 @@ public class Character {
     public void setStrength(int strength) {
         this.strength = strength;
     }
-    
-        @Override
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -49,14 +50,14 @@ public class Character {
         if (!(obj instanceof Character)) {
             return false;
         }
-        
+
         Character that = (Character) obj;
-        if(strength != that.strength){
+        if (strength != that.strength) {
             return false;
         }
-        
+
         return name.equals(that.name);
-        
+
     }
 
     @Override
@@ -67,6 +68,4 @@ public class Character {
         return hash;
     }
 
-    
-    
 }
