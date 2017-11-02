@@ -1,6 +1,5 @@
 package gameproject;
 
-
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Queue;
@@ -116,7 +115,7 @@ public class GraphAlgorithms {
     }
 
     /**
-     * 
+     *
      * All paths between two vertices Calls recursive version of the method.
      *
      * @param graph Graph object
@@ -157,7 +156,7 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
-    //condição de paragem...qd o destino é igual ao source(o source muda a cada chamada recursiva)
+        //condição de paragem...qd o destino é igual ao source(o source muda a cada chamada recursiva)
         //adiciono o caminho encontrado e o método pára
         if (sourceIdx == destIdx) {
             auxStack.add(graph.vertices.get(sourceIdx));
@@ -192,23 +191,22 @@ public class GraphAlgorithms {
      */
     public static <V, E> AdjacencyMatrixGraph<V, E> transitiveClosure(AdjacencyMatrixGraph<V, E> graph, E dummyEdge) {
 
+        AdjacencyMatrixGraph<V, E> newGraph = (AdjacencyMatrixGraph) graph.clone();
+        int tamV = newGraph.numVertices;
 
-        for (int k = 0; k < graph.numVertices; k++) {
-            for (int i = 0; i < graph.numVertices; i++) {
-                if (i != k && graph.getEdge(graph.vertices.get(i), graph.vertices.get(k)) != null) { //se existir ramo entre vértice i e vértice k
-                    for (int j = 0; j < graph.numVertices; j++) {
-                        if (i != j && k != j && graph.getEdge(graph.vertices.get(k), graph.vertices.get(j)) != null) {
-                           graph.insertEdge(graph.vertices.get(i), graph.vertices.get(j), dummyEdge);
-
+        for (int i = 0; i < tamV; i++) {
+            for (int j = 0; j < tamV; j++) {
+                if (i != j && newGraph.getEdge(newGraph.vertices.get(i), newGraph.vertices.get(j)) != null) {
+                    for (int k = 0; k < tamV; k++) {
+                        if (k != j && k != i && newGraph.getEdge(newGraph.vertices.get(k), newGraph.vertices.get(j)) != null) {
+//                            graph.removeEdge(newGraph.vertices.get(i), newGraph.vertices.get(j));
+                            newGraph.insertEdge(newGraph.vertices.get(i), newGraph.vertices.get(j), dummyEdge);
                         }
                     }
-
                 }
-
             }
-
         }
-        return null;
+        return newGraph;
     }
 
 }
