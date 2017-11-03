@@ -126,21 +126,18 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> boolean allPaths(AdjacencyMatrixGraph<V, E> graph, V source, V dest, LinkedList<LinkedList<V>> paths) {
-        
-        
-//        if (graph.checkVertex(source) && graph.checkVertex(dest)) { //verifico se ambos os vértices existem
-////temos de preencher a LinkedList paths, e se tiver pelo menos uma ligação retorna boolean true
-//            paths.clear();
-//            boolean[] knownVertices = new boolean[graph.numVertices];
-//            LinkedList<V> auxStack = new LinkedList<>();
-//
-////        //chamo o método all Paths, que é recursivo e irá preencher todos os caminhos a partir dos vértices a 1 ramo de distância da origem
-////        for (V it : graph.directConnections(source)) { //retorna os vizinhos da source
-//            GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
-////        }
-//            return paths.size() > 0;
-//        }
-//        return false;
+
+        if (graph.checkVertex(source) && graph.checkVertex(dest)) {
+
+            paths.clear();
+            boolean[] knownVertices = new boolean[graph.numVertices];
+            LinkedList<V> auxStack = new LinkedList<>();
+
+            GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
+
+            return paths.size() > 0;
+        }
+        return false;
     }
 
     /**
@@ -157,33 +154,25 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> void allPaths(AdjacencyMatrixGraph<V, E> graph, int sourceIdx, int destIdx, boolean[] knownVertices, LinkedList<V> auxStack, LinkedList<LinkedList<V>> paths) {
-        //condição de paragem...qd o destino é igual ao source(o source muda a cada chamada recursiva)
-        //adiciono o caminho encontrado e o método pára
         if (sourceIdx == destIdx) {
             auxStack.add(graph.vertices.get(sourceIdx));
             paths.add(auxStack);
         } else {
-            //marca o index do vertice no ArrayList do grafo no mesmo indice no array de booleans         
             knownVertices[sourceIdx] = true;
-            //adiciono ao path
             auxStack.add(graph.vertices.get(sourceIdx));
 
-            for (V it : graph.directConnections(graph.vertices.get(sourceIdx))) { //retorna os vizinhos da source
-                V vDestino = graph.vertices.get(destIdx); //guardo temporariamente o destino, para simplificar o codigo
+            for (V adjVert : graph.directConnections(graph.vertices.get(sourceIdx))) {
 
-                if (knownVertices[graph.toIndex(it)] == false) {    //se ainda n foi visitado
-                    GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(it), destIdx, knownVertices, auxStack, paths);
-
+                if (knownVertices[graph.toIndex(adjVert)] == false) {
+                    GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(adjVert), destIdx, knownVertices, auxStack, paths);
                 }
             }
         }
         knownVertices[sourceIdx] = false;
-        auxStack.remove(); //duvidas, pode ter de ser comentado
-
+        auxStack.remove();
     }
 
     /**
-     * ADICIONEI....NÃO CONFIRMADO COM PROF Transforms a graph into its
      * transitive closure uses the Floyd-Warshall algorithm
      *
      * @param graph Graph object
@@ -200,7 +189,6 @@ public class GraphAlgorithms {
                 if (i != j && newGraph.getEdge(newGraph.vertices.get(i), newGraph.vertices.get(j)) != null) {
                     for (int k = 0; k < tamV; k++) {
                         if (k != j && k != i && newGraph.getEdge(newGraph.vertices.get(k), newGraph.vertices.get(j)) != null) {
-//                            graph.removeEdge(newGraph.vertices.get(i), newGraph.vertices.get(j));
                             newGraph.insertEdge(newGraph.vertices.get(i), newGraph.vertices.get(j), dummyEdge);
                         }
                     }
