@@ -126,20 +126,21 @@ public class GraphAlgorithms {
      *
      */
     public static <V, E> boolean allPaths(AdjacencyMatrixGraph<V, E> graph, V source, V dest, LinkedList<LinkedList<V>> paths) {
-
-        if (graph.checkVertex(source) && graph.checkVertex(dest)) { //verifico se ambos os vértices existem
-//temos de preencher a LinkedList paths, e se tiver pelo menos uma ligação retorna boolean true
-            paths.clear();
-            boolean[] knownVertices = new boolean[graph.numVertices];
-            LinkedList<V> auxStack = new LinkedList<>();
-
-//        //chamo o método all Paths, que é recursivo e irá preencher todos os caminhos a partir dos vértices a 1 ramo de distância da origem
-//        for (V it : graph.directConnections(source)) { //retorna os vizinhos da source
-            GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
+        
+        
+//        if (graph.checkVertex(source) && graph.checkVertex(dest)) { //verifico se ambos os vértices existem
+////temos de preencher a LinkedList paths, e se tiver pelo menos uma ligação retorna boolean true
+//            paths.clear();
+//            boolean[] knownVertices = new boolean[graph.numVertices];
+//            LinkedList<V> auxStack = new LinkedList<>();
+//
+////        //chamo o método all Paths, que é recursivo e irá preencher todos os caminhos a partir dos vértices a 1 ramo de distância da origem
+////        for (V it : graph.directConnections(source)) { //retorna os vizinhos da source
+//            GraphAlgorithms.allPaths(graph, graph.vertices.indexOf(source), graph.vertices.indexOf(dest), knownVertices, auxStack, paths);
+////        }
+//            return paths.size() > 0;
 //        }
-            return paths.size() > 0;
-        }
-        return false;
+//        return false;
     }
 
     /**
