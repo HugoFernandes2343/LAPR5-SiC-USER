@@ -9,16 +9,24 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class Character {
 
     private String name;
     private int strength;
+    private Locale startingLocale;
 
-    public Character(String name, int strength) {
+    /**
+     * constructor for Character
+     * @param name
+     * @param strength
+     * @param l
+     */
+    public Character(String name, int strength, Locale l) {
         this.name = name;
         this.strength = strength;
+        this.startingLocale = l;
     }
 
     public Character() {
@@ -41,7 +49,14 @@ public class Character {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+    
+    public Locale getStartingLocale() {
+        return startingLocale;
+    }
 
+    public void setStartingLocale(Locale l) {
+        this.startingLocale = l;
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -55,7 +70,9 @@ public class Character {
         if (strength != that.strength) {
             return false;
         }
-
+        if (startingLocale != that.startingLocale) {
+            return false;
+        }
         return name.equals(that.name);
 
     }
@@ -69,3 +86,4 @@ public class Character {
     }
 
 }
+

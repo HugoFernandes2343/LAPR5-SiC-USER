@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class Roads {
 

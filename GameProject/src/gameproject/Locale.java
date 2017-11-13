@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author hugod
+ * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
 public class Locale {
 
@@ -17,10 +17,9 @@ public class Locale {
     private Character owner = null;
     private int difficulty;
 
-    public Locale(String n, Character o, int d) {
+    public Locale(String n, int d) {
 
         this.name = n;
-        this.owner = o;
         this.difficulty = d;
     }
 
