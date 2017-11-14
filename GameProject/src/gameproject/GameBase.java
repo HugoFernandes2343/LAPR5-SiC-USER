@@ -5,6 +5,8 @@
  */
 package gameproject;
 
+import graphMatrix.AdjacencyMatrixGraph;
+
 /**
  *
  * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
@@ -15,15 +17,15 @@ public class GameBase {
     private AdjacencyMatrixGraph<Character, Aliance> map; // mudar isto para map e nao matrix
 
     public void GameBase() {
-        this.matrix = new AdjacencyMatrixGraph<Locale, Roads>();
-        this.map = new AdjacencyMatrixGraph<Character, Aliance>();
+        this.matrix = new AdjacencyMatrixGraph<>();
+        this.map = new AdjacencyMatrixGraph<>();
     }
 
     public Locale searchForLocal(String s) {
         Locale l = new Locale();
-        for (int i = 0; i < matrix.numVertices; i++) {
-            if(matrix.vertices.get(i).getName().equalsIgnoreCase(s)){
-            l = matrix.vertices.get(i);
+        for (Locale loc : matrix.vertices()){
+            if(loc.getName().equalsIgnoreCase(s)){
+            l = loc;
             }
         }
         return l;
@@ -59,9 +61,9 @@ public class GameBase {
 
     Character searchForCharacter(String s) {
         Character c = new Character();
-        for (int i = 0; i < map.numVertices; i++) {
-            if(map.vertices.get(i).getName().equalsIgnoreCase(s)){
-            c = map.vertices.get(i);
+        for (Character pers : map.vertices()){
+            if(pers.getName().equalsIgnoreCase(s)){
+            c = pers;
             }
         }
         return c;

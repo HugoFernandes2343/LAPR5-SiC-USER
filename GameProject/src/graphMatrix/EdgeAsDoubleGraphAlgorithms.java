@@ -1,5 +1,6 @@
-package gameproject;
+package graphMatrix;
 
+import graphMatrix.AdjacencyMatrixGraph;
 import java.util.LinkedList;
 
 /**
@@ -117,7 +118,7 @@ public class EdgeAsDoubleGraphAlgorithms {
      */
     public static <V> AdjacencyMatrixGraph<V, Double> minDistGraph(AdjacencyMatrixGraph<V, Double> graph) {
         AdjacencyMatrixGraph<V, Double> newGraph = (AdjacencyMatrixGraph<V, Double>) graph.clone();
-        
+
         for (int k = 0; k < newGraph.numVertices; k++) {
             for (int i = 0; i < newGraph.numVertices; i++) {
                 if (i != k && newGraph.privateGet(i, k) != null) {

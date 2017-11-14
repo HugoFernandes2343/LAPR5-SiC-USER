@@ -1,5 +1,6 @@
-package gameproject;
+package graphMatrix;
 
+import graphMatrix.AdjacencyMatrixGraph;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Queue;
