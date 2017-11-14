@@ -7,6 +7,9 @@ package gameproject;
 
 import graphMap.Graph;
 import graphMatrix.AdjacencyMatrixGraph;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  *
@@ -14,6 +17,10 @@ import graphMatrix.AdjacencyMatrixGraph;
  */
 public class GameBase {
 
+    private Set<Roads> roads;
+    private Set<Locale> locale;
+    private Set<Aliance> aliance;
+    private Set<Character> character;
     private AdjacencyMatrixGraph<Locale, Roads> matrix;
     private Graph<Character, Aliance> map; // mudar isto para map e nao matrix
 
@@ -23,13 +30,21 @@ public class GameBase {
     }
 
     public Locale searchForLocal(String s) {
-        Locale l = new Locale();
-        for (Locale loc : matrix.vertices()) {
-            if (loc.equals(s)) {
-                l = loc;
-            }
-        }
+        LinkedList<Locale> al = (LinkedList<Locale>) matrix.vertices();
+        Locale l = null;
+        searchForLocal(s,al,l);
         return l;
+    }
+
+    private void searchForLocal(String s, LinkedList<Locale> al, Locale l) {
+        if (al.peekFirst() != null || l != null) {
+            if (al.peekFirst().getName().equalsIgnoreCase(s)) {
+                l=new Locale();
+                l = al.peekFirst();
+            }
+            al.removeFirst();
+            searchForLocal(s,al,l);
+        }
     }
 
     public AdjacencyMatrixGraph<Locale, Roads> getMatrix() {
@@ -60,18 +75,26 @@ public class GameBase {
         return map.insertEdge(c1, c2, al, pw);
     }
 
-    Character searchForCharacter(String s) {
-        Character c = new Character();
-        for (Character pers : map.vertices()) {
-            if (pers.equals(s)) {
-                c = pers;
-            }
-        }
+    public Character searchForCharacter(String s) {
+        LinkedList<Character> al = (LinkedList<Character>) map.vertices();
+        Character c = null;
+        searchForCharacter(s,al,c);
         return c;
     }
-    
-        
-    public Roads caminhoMaisFacil (Locale l1, Locale l2){
+
+    private void searchForCharacter(String s, LinkedList<Character> al, Character c) {
+        if (al.peekFirst() != null || c != null) {
+            if (al.peekFirst().getName().equalsIgnoreCase(s)) {
+                c= new Character();
+                c = al.peekFirst();
+            }
+            al.removeFirst();
+            searchForCharacter(s,al,c);
+        }
+    }
+
+
+    public Roads caminhoMaisFacil(Locale l1, Locale l2) {
         return null;
     }
 }

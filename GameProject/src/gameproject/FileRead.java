@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  *
@@ -17,6 +19,7 @@ import java.io.IOException;
 public class FileRead {
 
     private GameBase gb;
+    
 
     public GameBase getGameBase() {
         return gb;
@@ -40,7 +43,7 @@ public class FileRead {
             BufferedReader bufferedReader
                     = new BufferedReader(fileReader);
 
-            if ((line = bufferedReader.readLine()) != "LOCAIS") {
+            if ((line = bufferedReader.readLine()).equalsIgnoreCase("LOCAIS")) {
                 while ((line = bufferedReader.readLine()) != "CAMINHOS") {
                     String[] specifics = line.split(",");
                     gb.insertLocale(specifics[0], Integer.parseInt(specifics[1]));
@@ -52,6 +55,7 @@ public class FileRead {
                     gb.insertRoads(Integer.parseInt(specifics[2]), l1, l2);
                 }
             }
+
             bufferedReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println(
@@ -83,15 +87,13 @@ public class FileRead {
                     String[] specifics = line.split(",");
                     Locale l1 = gb.searchForLocal(specifics[2]);
                     gb.insertCharacter(specifics[0], Integer.parseInt(specifics[1]), l1);
+                    
                 }
                 while ((line = bufferedReader.readLine()) != null) {
                     String[] specifics = line.split(",");
                     Character c1 = gb.searchForCharacter(specifics[0]);
                     Character c2 = gb.searchForCharacter(specifics[1]);
                     boolean b1 = true;
-                    if (specifics[2].equalsIgnoreCase("TRUE")) {
-                        b1 = true;
-                    }
                     if (specifics[2].equalsIgnoreCase("FALSE")) {
                         b1 = false;
                     }
@@ -113,5 +115,4 @@ public class FileRead {
 
         }
     }
-
 }
