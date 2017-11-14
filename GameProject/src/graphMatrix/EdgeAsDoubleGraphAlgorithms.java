@@ -1,6 +1,7 @@
 package graphMatrix;
 
-import graphMatrix.AdjacencyMatrixGraph;
+import gameproject.Locale;
+import gameproject.Roads;
 import java.util.LinkedList;
 
 /**
@@ -54,7 +55,7 @@ public class EdgeAsDoubleGraphAlgorithms {
      * @return minimum distance, -1 if vertices not in graph or no path
      *
      */
-    public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
+     public static <V> double shortestPath(AdjacencyMatrixGraph<V, Double> graph, V source, V dest, LinkedList<V> path) {
         int srcIndex = graph.toIndex(source);
         int dstIndex = graph.toIndex(dest);
 

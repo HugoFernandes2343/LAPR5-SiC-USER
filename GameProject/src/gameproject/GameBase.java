@@ -7,6 +7,7 @@ package gameproject;
 
 import graphMap.Graph;
 import graphMatrix.AdjacencyMatrixGraph;
+import graphMatrix.EdgeAsDoubleGraphAlgorithms;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Set;
@@ -32,18 +33,18 @@ public class GameBase {
     public Locale searchForLocal(String s) {
         LinkedList<Locale> al = (LinkedList<Locale>) matrix.vertices();
         Locale l = null;
-        searchForLocal(s,al,l);
+        searchForLocal(s, al, l);
         return l;
     }
 
     private void searchForLocal(String s, LinkedList<Locale> al, Locale l) {
         if (al.peekFirst() != null || l != null) {
             if (al.peekFirst().getName().equalsIgnoreCase(s)) {
-                l=new Locale();
+                l = new Locale();
                 l = al.peekFirst();
             }
             al.removeFirst();
-            searchForLocal(s,al,l);
+            searchForLocal(s, al, l);
         }
     }
 
@@ -78,23 +79,38 @@ public class GameBase {
     public Character searchForCharacter(String s) {
         LinkedList<Character> al = (LinkedList<Character>) map.vertices();
         Character c = null;
-        searchForCharacter(s,al,c);
+        searchForCharacter(s, al, c);
         return c;
     }
 
     private void searchForCharacter(String s, LinkedList<Character> al, Character c) {
         if (al.peekFirst() != null || c != null) {
             if (al.peekFirst().getName().equalsIgnoreCase(s)) {
-                c= new Character();
+                c = new Character();
                 c = al.peekFirst();
             }
             al.removeFirst();
-            searchForCharacter(s,al,c);
+            searchForCharacter(s, al, c);
         }
     }
 
+    public <V> Iterable<Roads> caminhoMaisFacil(Locale l1, Locale l2) {
+        LinkedList<Roads> path = new LinkedList<>();
+        AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
-    public Roads caminhoMaisFacil(Locale l1, Locale l2) {
-        return null;
+        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath((AdjacencyMatrixGraph<V, Double>) g, (V) l1, (V) l2, (LinkedList<V>) path);
+        return path;
+    }
+
+    public AdjacencyMatrixGraph<Locale, Double> cloneToDouble(AdjacencyMatrixGraph<Locale, Roads> graph) {
+        AdjacencyMatrixGraph<Locale, Double> clone = new AdjacencyMatrixGraph<>(graph.numVertices());
+
+        for (Locale l : graph.vertices()) {
+            clone.insertVertex(l);
+        }
+        for (Roads r : graph.edges()) {
+            clone.insertEdge(r.getFirst(), r.getSecond(), (double) r.getDifficulty());
+        }
+        return clone;
     }
 }
