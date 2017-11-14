@@ -6,19 +6,19 @@ import java.util.Objects;
  *
  * @author 1120608 Norberto Sousa 1161155 Hugo Fernandes
  */
-public class Roads {
+public class Road {
 
     private int difficulty;
     private Locale first;
     private Locale second;
 
-    public Roads(int difficulty, Locale first, Locale second) {
+    public Road(int difficulty, Locale first, Locale second) {
         this.difficulty = difficulty;
         this.first = first;
         this.second = second;
     }
 
-    public Roads() {
+    public Road() {
         this.difficulty = 0;
         this.first = new Locale();
         this.second = new Locale();
@@ -65,7 +65,7 @@ public class Roads {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Roads other = (Roads) obj;
+        final Road other = (Road) obj;
         if (this.difficulty != other.difficulty) {
             return false;
         }

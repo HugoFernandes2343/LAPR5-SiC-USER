@@ -70,8 +70,8 @@ public class GameBaseTest {
     public void testGetMatrix() {
         System.out.println("getMatrix");
         GameBase instance = new GameBase();
-        AdjacencyMatrixGraph<Locale, Roads> expResult = null;
-        AdjacencyMatrixGraph<Locale, Roads> result = instance.getMatrix();
+        AdjacencyMatrixGraph<Locale, Road> expResult = null;
+        AdjacencyMatrixGraph<Locale, Road> result = instance.getMatrix();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -184,8 +184,8 @@ public class GameBaseTest {
         Locale l1 = null;
         Locale l2 = null;
         GameBase instance = new GameBase();
-        Iterable<Roads> expResult = null;
-        Iterable<Roads> result = instance.caminhoMaisFacil(l1, l2);
+        Iterable<Road> expResult = null;
+        Iterable<Road> result = instance.caminhoMaisFacil(l1, l2);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -197,7 +197,7 @@ public class GameBaseTest {
     @Test
     public void testCloneToDouble() {
         System.out.println("cloneToDouble");
-        AdjacencyMatrixGraph<Locale, Roads> graph = new AdjacencyMatrixGraph<>();
+        AdjacencyMatrixGraph<Locale, Road> graph = new AdjacencyMatrixGraph<>();
         GameBase instance = new GameBase();
         AdjacencyMatrixGraph<Locale, Double> expResult = null;
         AdjacencyMatrixGraph<Locale, Double> result = instance.cloneToDouble(graph);

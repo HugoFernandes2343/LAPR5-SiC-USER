@@ -1,7 +1,7 @@
 package graphMatrix;
 
 import gameproject.Locale;
-import gameproject.Roads;
+import gameproject.Road;
 import java.util.LinkedList;
 
 /**
