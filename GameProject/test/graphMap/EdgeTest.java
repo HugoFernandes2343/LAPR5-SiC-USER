@@ -5,8 +5,6 @@
  */
 package graphMap;
 
-import graphMap.Vertex;
-import graphMap.Edge;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,12 +17,29 @@ import static org.junit.Assert.*;
  * @author Norberto Sousa
  */
 public class EdgeTest {
-      
-    Edge<String, String> instance = new Edge<>() ;
     
     public EdgeTest() {
     }
     
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    Edge<String, String> instance = new Edge<>() ;
+    
+
     /**
      * Test of getElement method, of class Edge.
      */
@@ -232,5 +247,5 @@ public class EdgeTest {
         
         System.out.println(instance);
     }
-    
+ 
 }

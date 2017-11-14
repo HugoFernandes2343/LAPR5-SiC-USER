@@ -5,8 +5,6 @@
  */
 package graphMap;
 
-import graphMap.Graph;
-import graphMap.Edge;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,15 +19,26 @@ import static org.junit.Assert.*;
  */
 public class GraphTest {
     
-    Graph<String, String> instance = new Graph<>(true) ;
-    
     public GraphTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
     }
     
     @Before
     public void setUp() {
-        
     }
+    
+    @After
+    public void tearDown() {
+    }
+
+    Graph<String, String> instance = new Graph<>(true) ;
     
     /**
      * Test of numVertices method, of class Graph.

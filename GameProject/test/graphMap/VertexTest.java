@@ -5,8 +5,6 @@
  */
 package graphMap;
 
-import graphMap.Edge;
-import graphMap.Vertex;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,11 +19,27 @@ import static org.junit.Assert.*;
  */
 public class VertexTest {
     
-    Vertex<String, Integer> instance = new Vertex<>() ;
-    
     public VertexTest() {
     }
     
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    Vertex<String, Integer> instance = new Vertex<>() ;
+   
     /**
      * Test of getKey method, of class Vertex.
      */

@@ -5,8 +5,6 @@
  */
 package graphMap;
 
-import graphMap.GraphAlgorithms;
-import graphMap.Graph;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -23,10 +21,23 @@ import static org.junit.Assert.*;
  */
 public class GraphAlgorithmsTest {
     
-    Graph<String,String> completeMap = new Graph<>(false);
-    
     public GraphAlgorithmsTest() {
     }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    Graph<String,String> completeMap = new Graph<>(false);
+   
     
     @Before
     public void setUp() throws Exception {  
@@ -63,9 +74,6 @@ public class GraphAlgorithmsTest {
         
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     /**
      * Test of BreadthFirstSearch method, of class GraphAlgorithms.

@@ -69,4 +69,9 @@ public class GameBase {
         }
         return c;
     }
+    
+        
+    public Roads caminhoMaisFacil (Locale l1, Locale l2){
+        return null;
+    }
 }
