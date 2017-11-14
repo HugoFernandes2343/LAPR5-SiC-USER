@@ -5,11 +5,13 @@
  */
 package gameproject;
 
+import graphMap.Edge;
 import graphMap.Graph;
 import graphMatrix.AdjacencyMatrixGraph;
 import graphMatrix.EdgeAsDoubleGraphAlgorithms;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -94,7 +96,7 @@ public class GameBase {
         }
     }
 
-    public <V> Iterable<Roads> caminhoMaisFacil(Locale l1, Locale l2) {
+    public <V> LinkedList<Roads> caminhoMaisFacil(Locale l1, Locale l2) {
         LinkedList<Roads> path = new LinkedList<>();
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
@@ -103,6 +105,7 @@ public class GameBase {
     }
 
     public AdjacencyMatrixGraph<Locale, Double> cloneToDouble(AdjacencyMatrixGraph<Locale, Roads> graph) {
+
         AdjacencyMatrixGraph<Locale, Double> clone = new AdjacencyMatrixGraph<>(graph.numVertices());
 
         for (Locale l : graph.vertices()) {
@@ -112,5 +115,25 @@ public class GameBase {
             clone.insertEdge(r.getFirst(), r.getSecond(), (double) r.getDifficulty());
         }
         return clone;
+    }
+
+    public Iterable<Character> todosAliados(Character dude) {
+        return map.adjVertices(dude);
+    }
+
+    public float alianceMaisForte(LinkedList<Character> membros) {
+
+        float power = 0.0f;
+
+        for (Edge<Character, Aliance> edg : map.edges()) {
+            float temp = edg.getElement().getPower();
+            if (temp > power) {
+                power = temp;
+                membros.clear();
+                membros.add(edg.getElement().getFirstCharacter());
+                membros.add(edg.getElement().getSecondCharacter());
+            }
+        }
+        return power;
     }
 }
