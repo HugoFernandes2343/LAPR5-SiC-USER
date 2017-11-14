@@ -65,7 +65,6 @@ public class Character {
         if (!(obj instanceof Character)) {
             return false;
         }
-
         Character that = (Character) obj;
         if (strength != that.strength) {
             return false;
@@ -74,7 +73,6 @@ public class Character {
             return false;
         }
         return name.equals(that.name);
-
     }
 
     @Override
