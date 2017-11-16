@@ -21,18 +21,18 @@ public class FileRead {
     private GameBase gb;
     
 
-    public GameBase getGameBase() {
-        return gb;
-    }
-
     public void FileRead() throws CloneNotSupportedException {
         this.gb = new GameBase();
+        gb.GameBase();
         lerMatrix();
         lerMap();
     }
 
+    public GameBase getGamebase(){
+    return gb;
+    }
     private void lerMatrix() {
-        String fileName = "Matrix-LocaisxCaminhos_M.txt";
+        String fileName = "locais_S.txt";
 
         String line = null;
 
@@ -44,15 +44,24 @@ public class FileRead {
                     = new BufferedReader(fileReader);
 
             if ((line = bufferedReader.readLine()).equalsIgnoreCase("LOCAIS")) {
-                while ((line = bufferedReader.readLine()) != "CAMINHOS") {
+                int i = 0;
+                while (!(line = bufferedReader.readLine()).equalsIgnoreCase("CAMINHOS")) {
+                  //System.out.println(line);
                     String[] specifics = line.split(",");
                     gb.insertLocale(specifics[0], Integer.parseInt(specifics[1]));
+                    System.out.println(i);
+                    i++;
                 }
+                System.out.println(line);
+                i = 0;
                 while ((line = bufferedReader.readLine()) != null) {
+                    System.out.println(line);
                     String[] specifics = line.split(",");
                     Locale l1 = gb.searchForLocal(specifics[0]);
                     Locale l2 = gb.searchForLocal(specifics[1]);
                     gb.insertRoads(Integer.parseInt(specifics[2]), l1, l2);
+                    i++;
+                    
                 }
             }
 
@@ -71,25 +80,31 @@ public class FileRead {
     }
 
     private void lerMap() {
-        String fileName = "Map-PersonagemxAlianca_M.txt";
+        String fileName2 = "pers_S2.txt";
 
-        String line = null;
+        String line;
 
         try {
-            FileReader fileReader
-                    = new FileReader(fileName);
+            FileReader fileReader2
+                    = new FileReader(fileName2);
 
-            BufferedReader bufferedReader
-                    = new BufferedReader(fileReader);
+            BufferedReader bufferedReader2
+                    = new BufferedReader(fileReader2);
 
-            if ((line = bufferedReader.readLine()) != "PERSONAGENS") {
-                while ((line = bufferedReader.readLine()) != "ALIANÇAS") {
+            if ((line = bufferedReader2.readLine()).equalsIgnoreCase("PERSONAGENS")) {
+                System.out.println(line);
+                while (!(line = bufferedReader2.readLine()).equalsIgnoreCase("ALIANCAS")) {
+                    System.out.println(line);
                     String[] specifics = line.split(",");
+                    int i = specifics.length;
+                    System.out.println(i);
                     Locale l1 = gb.searchForLocal(specifics[2]);
                     gb.insertCharacter(specifics[0], Integer.parseInt(specifics[1]), l1);
                     
                 }
-                while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+                while ((line = bufferedReader2.readLine()) != null) {
+                     System.out.println(line);
                     String[] specifics = line.split(",");
                     Character c1 = gb.searchForCharacter(specifics[0]);
                     Character c2 = gb.searchForCharacter(specifics[1]);
@@ -103,15 +118,15 @@ public class FileRead {
                 }
             }
 
-            bufferedReader.close();
+            bufferedReader2.close();
         } catch (FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '"
-                    + fileName + "'");
+                    + fileName2 + "'");
         } catch (IOException ex) {
             System.out.println(
                     "Error reading file '"
-                    + fileName + "'");
+                    + fileName2 + "'");
 
         }
     }

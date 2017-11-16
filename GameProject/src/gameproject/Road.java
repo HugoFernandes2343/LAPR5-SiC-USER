@@ -12,7 +12,7 @@ public class Road {
     private Locale first;
     private Locale second;
 
-    public Road(int difficulty, Locale first, Locale second) {
+    public Road(Locale first,Locale second,int difficulty ) {
         this.difficulty = difficulty;
         this.first = first;
         this.second = second;

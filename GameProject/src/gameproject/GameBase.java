@@ -21,34 +21,27 @@ import java.util.Set;
  */
 public class GameBase {
 
-    private Set<Road> roads;
-    private Set<Locale> locale;
-    private Set<Aliance> aliance;
-    private Set<Character> character;
+  
     private AdjacencyMatrixGraph<Locale, Road> matrix;
     private Graph<Character, Aliance> map; // mudar isto para map e nao matrix
 
     public void GameBase() {
-        this.matrix = new AdjacencyMatrixGraph<>();
+        this.matrix = new AdjacencyMatrixGraph<>(10000);
         this.map = new Graph<>(false);
     }
 
     public Locale searchForLocal(String s) {
-        LinkedList<Locale> al = (LinkedList<Locale>) matrix.vertices();
-        Locale l = null;
-        searchForLocal(s, al, l);
-        return l;
-    }
-
-    private void searchForLocal(String s, LinkedList<Locale> al, Locale l) {
-        if (al.peekFirst() != null || l != null) {
-            if (al.peekFirst().getName().equalsIgnoreCase(s)) {
-                l = new Locale();
-                l = al.peekFirst();
+        ArrayList<Locale> al = new ArrayList<>();
+        al = (ArrayList<Locale>) matrix.vertices();
+        Locale l = new Locale();
+        for (int i = 0; i < al.size(); i++) {
+            if(al.get(i).getName().equalsIgnoreCase(s)) {
+                l = al.get(i);
             }
-            al.removeFirst();
-            searchForLocal(s, al, l);
+                   
         }
+       // searchForLocal(s, ll, l);
+        return l;
     }
 
     public AdjacencyMatrixGraph<Locale, Road> getMatrix() {
@@ -59,42 +52,40 @@ public class GameBase {
         return map;
     }
 
-    public boolean insertLocale(String n, int d) {
-        return matrix.insertVertex(new Locale(n, d));
+    public void insertLocale(String n, int d) {
+         matrix.insertVertex(new Locale(n, d));
 
     }
 
-    public boolean insertRoads(int d, Locale l1, Locale l2) {
-        return matrix.insertEdge(l1, l2, new Road(d, l1, l2));
+    public void insertRoads(int d, Locale l1, Locale l2) {
+        Road r1 = new Road(l1,l2,d);
+        matrix.insertEdge(l1,l2, r1);
 
     }
 
-    public boolean insertCharacter(String n, int s, Locale l) {
-        return map.insertVertex(new Character(n, s, l));
+    public void  insertCharacter(String n, int s, Locale l) {
+        Character c = new Character(n,s,l);
+         map.insertVertex(c);
 
     }
 
-    public boolean insertAliance(boolean p, float cf, float pw, Character c1, Character c2) {
+    public void insertAliance(boolean p, float cf, float pw, Character c1, Character c2) {
         Aliance al = new Aliance(p, cf, pw, c1, c2);
-        return map.insertEdge(c1, c2, al, pw);
+        map.insertEdge(c1, c2, al, pw);
     }
 
     public Character searchForCharacter(String s) {
-        LinkedList<Character> al = (LinkedList<Character>) map.vertices();
-        Character c = null;
-        searchForCharacter(s, al, c);
-        return c;
-    }
-
-    private void searchForCharacter(String s, LinkedList<Character> al, Character c) {
-        if (al.peekFirst() != null || c != null) {
-            if (al.peekFirst().getName().equalsIgnoreCase(s)) {
-                c = new Character();
-                c = al.peekFirst();
-            }
-            al.removeFirst();
-            searchForCharacter(s, al, c);
+        ArrayList<Character> al = new ArrayList<>();
+        for(Character cTemp : map.vertices()){
+            al.add(cTemp);
         }
+        Character c = new Character();
+        for (int i = 0; i < al.size(); i++) {
+            if(al.get(i).getName().equalsIgnoreCase(s)) {
+                c = al.get(i);
+            }
+        }
+        return c;
     }
 
     public <V> LinkedList<Road> caminhoMaisFacil(Locale l1, Locale l2) {

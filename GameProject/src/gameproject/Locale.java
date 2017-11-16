@@ -55,18 +55,12 @@ public class Locale {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Aliance)) {
+        if (!(obj instanceof Locale)) {
             return false;
         }
         Locale that = (Locale) obj;
-        if (!(name.equals(that.name))) {
-            return false;
-        }
-        if (!(owner == that.owner)) {
-            return false;
-        }
-
-        return difficulty == that.difficulty;
+       
+            return this.name.equalsIgnoreCase(that.getName());
     }
 
     @Override

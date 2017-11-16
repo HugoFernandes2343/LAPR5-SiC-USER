@@ -79,12 +79,7 @@ public class Aliance {
             return false;
         }
         Aliance that = (Aliance) obj;
-        if (!(priv == that.priv)) {
-            return false;
-        }
-        if (!(compatibilityFactor == that.compatibilityFactor)) {
-            return false;
-        }
+        
         if (!(power == that.power)) {
             return false;
         }

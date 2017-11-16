@@ -66,12 +66,6 @@ public class Character {
             return false;
         }
         Character that = (Character) obj;
-        if (strength != that.strength) {
-            return false;
-        }
-        if (startingLocale != that.startingLocale) {
-            return false;
-        }
         return name.equals(that.name);
     }
 
