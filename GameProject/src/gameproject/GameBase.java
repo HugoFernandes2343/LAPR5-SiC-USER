@@ -10,9 +10,8 @@ import graphMap.Graph;
 import graphMap.GraphAlgorithms;
 import graphMatrix.AdjacencyMatrixGraph;
 import graphMatrix.EdgeAsDoubleGraphAlgorithms;
-//import graphMatrix.EdgeAsDoubleGraphAlgorithms;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -87,12 +86,19 @@ public class GameBase {
         return c;
     }
 
-    public  LinkedList<Locale> caminhoMaisFacil(Locale l1, Locale l2) {
+    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2) {
         LinkedList<Locale> path = new LinkedList<>();
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
-        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath( g,  l1,  l2, path);
+        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
         return path;
+    }
+
+    public double caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, LinkedList<Locale> path, Locale l1, Locale l2) {
+        AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
+
+        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
+        return dist;
     }
 
     public AdjacencyMatrixGraph<Locale, Double> cloneToDouble(AdjacencyMatrixGraph<Locale, Road> graph) {
@@ -136,9 +142,9 @@ public class GameBase {
      * @return
      */
     public ArrayList<String> conquerInformation(Character c, Locale l) {
-       
+
         ArrayList<String> al = new ArrayList<>(3);
-        
+
         /*LinkedList<Road> lr = new LinkedList<Road>();
         int str_c = c.getStrength();
         Locale origin_c = c.getStartingLocale();
@@ -245,37 +251,50 @@ public class GameBase {
 
     }
 
-    public float conquerGroup(Character pers, Character aliado, LinkedList<Locale> locaisIntermedios, Locale localX) {
-        if (!map.validVertex(pers) || !map.validVertex(aliado) || !matrix.checkVertex(localX)) {
-            return -1;
+    public AdjacencyMatrixGraph<Locale, Road> mundoSemLocaisAliados(Character aliado) {
+        AdjacencyMatrixGraph<Locale, Road> novaMatrix = (AdjacencyMatrixGraph<Locale, Road>) matrix.clone();
+        for (Locale l : novaMatrix.vertices()) {
+            if (l.getOwner().equals(aliado)) {
+                novaMatrix.removeVertex(l);
+            }
         }
-        aliado = null;
-        float powerAliance = 0;
-        float powerX = localX.getDifficulty();
-        if (localX.getOwner() != null) {
-            powerX = powerX + localX.getOwner().getStrength();
-        }
+        return novaMatrix;
+    }
 
-        LinkedList<LinkedList<Locale>> lista = new LinkedList<>();
-        if (graphMatrix.GraphAlgorithms.allPaths(matrix, pers.getStartingLocale(), localX, lista)) {
-            locaisIntermedios = lista.pollFirst();
-            for (LinkedList<Locale> l : lista) {
-                if (l.size() < locaisIntermedios.size()) {
-                    locaisIntermedios = l;
+
+    public float melhorLocAlConquista(Character pers, Locale dest, HashMap<Character, LinkedList<Locale>> listaLoc  ) {
+        if (!map.validVertex(pers) || !matrix.checkVertex(dest)) {
+            return -1;
+        }        
+        
+        Character melhorAliado = new Character();
+        LinkedList<Locale> melhorCaminhoPath = new LinkedList<>();
+        double melhorCaminhoDist = Double.MAX_VALUE;
+        float destDiff = -1;
+
+        for (Locale loc : pers.getLocales()) {
+            for (Character aliado : map.adjVertices(pers)) {
+                AdjacencyMatrixGraph<Locale, Road> newMatrix = mundoSemLocaisAliados(aliado);
+                LinkedList<Locale> caminhoTemp = new LinkedList<>();
+
+                double distTemp = caminhoMaisFacil(newMatrix, caminhoTemp, loc, dest);
+                float aliancePower = map.getEdge(pers, aliado).getElement().getPower();
+                destDiff = matrix.getEdge(caminhoTemp.get(caminhoTemp.size() - 2), caminhoTemp.peekLast()).getDifficulty() + dest.getDifficulty();
+
+                if (distTemp < melhorCaminhoDist && aliancePower > destDiff) {
+                    melhorCaminhoPath = caminhoTemp;
+                    melhorCaminhoDist = distTemp;
+                    melhorAliado = aliado;
                 }
             }
         }
-
-        for (Character al : map.adjVertices(pers)) {
-            powerAliance = map.getEdge(pers, al).getElement().getPower();
-            if (!locaisIntermedios.contains(al.getStartingLocale()) && powerAliance > powerX) {
-                aliado = al;
-            }
-        }
-        if (aliado == null) {
+        
+        if (destDiff == -1 || melhorCaminhoPath == null) {
             return -1;
         }
-        return powerAliance;
+        
+        listaLoc.put(melhorAliado, melhorCaminhoPath);
+        return destDiff;
     }
 
 }
