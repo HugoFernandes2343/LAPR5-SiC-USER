@@ -87,11 +87,11 @@ public class GameBase {
         return c;
     }
 
-    public <V> LinkedList<Road> caminhoMaisFacil(Locale l1, Locale l2) {
-        LinkedList<Road> path = new LinkedList<>();
+    public  LinkedList<Locale> caminhoMaisFacil(Locale l1, Locale l2) {
+        LinkedList<Locale> path = new LinkedList<>();
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
-        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath((AdjacencyMatrixGraph<V, Double>) g, (V) l1, (V) l2, (LinkedList<V>) path);
+        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath( g,  l1,  l2, path);
         return path;
     }
 
@@ -136,8 +136,10 @@ public class GameBase {
      * @return
      */
     public ArrayList<String> conquerInformation(Character c, Locale l) {
+       
         ArrayList<String> al = new ArrayList<>(3);
-        LinkedList<Road> lr = new LinkedList<Road>();
+        
+        /*LinkedList<Road> lr = new LinkedList<Road>();
         int str_c = c.getStrength();
         Locale origin_c = c.getStartingLocale();
         lr = caminhoMaisFacil(c.getStartingLocale(), l);
@@ -167,7 +169,7 @@ public class GameBase {
             origin_c = localeTemp;
         }
         al.set(2, Integer.toString(maxPower));
-        return al;
+        return al;*/
     }
 
     public Aliance novaAlianca(Graph<Character, Aliance> map, Character a, Character b) {

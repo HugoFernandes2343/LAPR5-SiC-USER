@@ -5,6 +5,7 @@
  */
 package gameproject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,7 @@ public class Character {
     private String name;
     private int strength;
     private Locale startingLocale;
+    private ArrayList<Locale> locales;
 
     /**
      * constructor for Character
@@ -27,13 +29,18 @@ public class Character {
         this.name = name;
         this.strength = strength;
         this.startingLocale = l;
+        this.locales.add(l);
     }
 
     public Character() {
         this.name = "";
         this.strength = 0;
     }
-
+    
+    public ArrayList<Locale> getLocales(){
+    return locales;
+    }
+    
     public String getName() {
         return name;
     }
