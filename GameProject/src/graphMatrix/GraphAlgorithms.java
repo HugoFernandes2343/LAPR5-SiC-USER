@@ -1,6 +1,5 @@
 package graphMatrix;
 
-import graphMatrix.AdjacencyMatrixGraph;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Queue;
@@ -71,10 +70,6 @@ public class GraphAlgorithms {
     }
 
     /**
-     * ADICIONEI:
-     *
-     * Performs breath-first search of the graph starting at vertex. The method
-     * adds discovered vertices (including vertex) to the queue of vertices
      *
      * @param graph Graph object
      * @param vertex Vertex of graph that will be the source of the search
@@ -97,14 +92,13 @@ public class GraphAlgorithms {
                 V temp = qaux.peek();               //guardo temporariamente o Vértice
                 qaux.remove();
 
-                if (!qbfs.contains(temp)) {           //se já foi atingido/visitado não adiciona
+                if (!qbfs.contains(temp)) {
                     qbfs.add(temp);
                 }
 
-                for (V it : graph.directConnections(temp)) {//tem de ser um Iterable porque é esse o retorno do método directConnections
-                    if (!(qbfs.contains(it)) && !(qaux.contains(it))) {    //se não estiver contida em nenhuma das 2. adiciona ao auxiliar
-                        //se estiver na qbfs já foi visitado// se estiver na qaux já está marcada para visitar
-                        qaux.add(it);           //adiciono ao qaux, todos os vértices vizinhos do vértice removido, ficam no final da queue
+                for (V it : graph.directConnections(temp)) {
+                    if (!(qbfs.contains(it)) && !(qaux.contains(it))) {
+                       qaux.add(it);
                     }
 
                 }

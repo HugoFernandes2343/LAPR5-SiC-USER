@@ -200,7 +200,7 @@ public class GraphAlgorithms {
         }
     }
 
-    //shortest-path between voInf and vdInf
+
     public static <V, E> double shortestPath(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> shortPath) {
         if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
             return -1;
