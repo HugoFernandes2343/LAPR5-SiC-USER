@@ -119,41 +119,7 @@ public class GameBaseTest {
         assertEquals(expResult.edges(), result.edges());
     }
 
-    /**
-     * Test of caminhoMaisFacil method, of class GameBase.
-     */
-    @Test
-    public void testCaminhoMaisFacil_4args_1() {
-        System.out.println("caminhoMaisFacil");
-        AdjacencyMatrixGraph<Locale, Road> matrix = null;
-        Locale l1 = null;
-        Locale l2 = null;
-        double dist = 0.0;
-        GameBase instance = new GameBase();
-        LinkedList<Locale> expResult = null;
-        LinkedList<Locale> result = instance.caminhoMaisFacil(matrix, l1, l2, dist);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of caminhoMaisFacil method, of class GameBase.
-     */
-    @Test
-    public void testCaminhoMaisFacil_4args_2() {
-        System.out.println("caminhoMaisFacil");
-        AdjacencyMatrixGraph<Locale, Road> matrix = null;
-        LinkedList<Locale> path = null;
-        Locale l1 = null;
-        Locale l2 = null;
-        GameBase instance = new GameBase();
-        double expResult = 0.0;
-        double result = instance.caminhoMaisFacil(matrix, path, l1, l2);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of todosAliados method, of class GameBase.
@@ -446,6 +412,42 @@ public class GameBaseTest {
         
         result = instance.searchForCharacter("falso");
         assertEquals("character nao existe, retorna um char vazio", new Character(), result);
+    }
+
+    /**
+     * Test of caminhoMaisFacil method, of class GameBase.
+     */
+    @Test
+    public void testCaminhoMaisFacil() {
+        System.out.println("caminhoMaisFacil");
+        LinkedList<Locale> path = new LinkedList<>();
+        Locale A = new Locale("A", 10);
+        Locale B = new Locale("B", 10);
+        Locale C = new Locale("C", 10);
+        Locale D = new Locale("D", 10);
+        Locale E = new Locale("E", 10);
+        Road r1 = new Road(A,C, 10);
+        Road r3 = new Road(C,B, 10);
+        Road r2 = new Road(A,D, 20);
+        Road r4 = new Road(D,B, 20);
+        GameBase instance = new GameBase();
+        instance.insertLocale(A.getName(), A.getDifficulty());
+        instance.insertLocale(B.getName(), B.getDifficulty());
+        instance.insertLocale(C.getName(), C.getDifficulty());
+        instance.insertLocale(D.getName(), D.getDifficulty());
+        instance.insertLocale(E.getName(), E.getDifficulty());
+        instance.insertRoads(r1.getDifficulty(), r1.getFirst(), r1.getSecond());
+        instance.insertRoads(r3.getDifficulty(), r3.getFirst(), r3.getSecond());
+        instance.insertRoads(r2.getDifficulty(), r2.getFirst(), r2.getSecond());
+        instance.insertRoads(r4.getDifficulty(), r4.getFirst(), r4.getSecond());
+        
+        double expResult = 20.0;
+        double result = instance.caminhoMaisFacil(instance.getMatrix(), path, A, B);
+        assertEquals("Existe caminho",expResult, result, 0.0);
+        
+        expResult = -1;
+        result = instance.caminhoMaisFacil(instance.getMatrix(), path, A, E);
+        assertEquals("Nao xiste caminho",expResult, result, 0.0);
     }
     
 }

@@ -85,14 +85,6 @@ public class GameBase {
         return c;
     }
 
-    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2, double dist) {
-        LinkedList<Locale> path = new LinkedList<>();
-        AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
-
-        dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
-        return path;
-    }
-
     public double caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, LinkedList<Locale> path, Locale l1, Locale l2) {
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
