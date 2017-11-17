@@ -86,11 +86,11 @@ public class GameBase {
         return c;
     }
 
-    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2) {
+    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2,double dist) {
         LinkedList<Locale> path = new LinkedList<>();
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
-        double dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
+        dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
         return path;
     }
 
@@ -134,48 +134,60 @@ public class GameBase {
         return power;
     }
 
-    /**
+     /**
      * ALINEA 1.c)
      *
      * @param c
      * @param l
      * @return
      */
-    public ArrayList<String> conquerInformation(Character c, Locale l) {
-
-        ArrayList<String> al = new ArrayList<>(3);
-
-        /*LinkedList<Road> lr = new LinkedList<Road>();
-        int str_c = c.getStrength();
-        Locale origin_c = c.getStartingLocale();
-        lr = caminhoMaisFacil(c.getStartingLocale(), l);
-        Iterator itr = lr.iterator();
-        Locale localeTemp = new Locale();
-        Road roadTemp = new Road();
-        int str_conquer = 0;
-        int maxPower = 0;
-        while (itr.hasNext() && str_c > str_conquer) {
-            roadTemp = (Road) itr.next();
-            if (roadTemp.getFirst().equals(origin_c)) {
-                localeTemp = roadTemp.getSecond();
-            } else {
-                localeTemp = roadTemp.getFirst();
-            }
-            str_conquer = roadTemp.getDifficulty() + localeTemp.getDifficulty();
-            if (str_c <= str_conquer) {
-                al.set(1, "Não é possivel conquistar");
-                al.set(3, this + "Stopped at ");
-            } else {
-                al.set(1, "Sim é possivel conquistar");
-            }
-            if (str_conquer > maxPower) {
-                maxPower = str_conquer;
-            }
-            al.set(3, this + localeTemp.getName() + ",");
-            origin_c = localeTemp;
+    public boolean conquerLocale(Character c, Locale l, LinkedList<Locale> path, double str_conquer) {
+        path.clear();
+        str_conquer = 0;
+        if (c == null) {
+            return false;
         }
-        al.set(2, Integer.toString(maxPower));
-        return al;*/
+        LinkedList<Locale> locales = new LinkedList<>();
+        for (int i = 0; i < this.matrix.numVertices(); i++) {
+            if (c.equals(l.getOwner())) {
+                locales.add(l);
+            }
+        }
+        ArrayList<Double> conquerPowers = new ArrayList<>();
+        LinkedList<LinkedList<Locale>> llPaths = new LinkedList<>();
+        for (int i = 0; i < locales.size(); i++) {
+            llPaths.add(this.caminhoMaisFacil(matrix,l, l, conquerPowers.get(i)));
+        }
+
+        if (llPaths.isEmpty()) {
+            return false;
+        }
+
+        str_conquer = Double.MAX_VALUE;
+        int pos = 0;
+
+        for (int i = 0; i < llPaths.size(); i++) {
+
+            double str = conquerPowers.get(i);
+
+            for (int j = 1; j < llPaths.get(i).size(); j++) {
+                str += llPaths.get(i).get(j).getDifficulty();
+                str += llPaths.get(i).get(j).getOwner().getStrength();
+            }
+
+            if (str < str_conquer) {
+                str_conquer = str;
+                pos = i;
+            }
+
+        }
+
+        for (Locale loc : llPaths.get(pos)) {
+            path.add(l);
+        }
+
+        return !path.isEmpty();
+
     }
 
     public Aliance novaAlianca(Graph<Character, Aliance> map, Character a, Character b) {
