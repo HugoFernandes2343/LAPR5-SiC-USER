@@ -21,9 +21,8 @@ public class FileRead {
     private GameBase gb;
     
 
-    public void FileRead() throws CloneNotSupportedException {
+    public FileRead() throws CloneNotSupportedException {
         this.gb = new GameBase();
-        gb.GameBase();
         lerMatrix();
         lerMap();
     }

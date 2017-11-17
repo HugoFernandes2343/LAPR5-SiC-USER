@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class Locale {
 
-    private String name;
-    private Character owner = null;
+    private String name = "";
+    private Character owner = new Character();
     private int difficulty = 0;
 
     public Locale(String n, int d) {

@@ -47,7 +47,6 @@ public class FileReadTest {
     public void testFileRead() throws Exception {
         System.out.println("FileRead");
         FileRead instance = new FileRead();
-        instance.FileRead();
         GameBase tempGb = instance.getGamebase();
 
         // Ir buscar os locais que sao lidos

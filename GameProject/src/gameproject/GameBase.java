@@ -23,8 +23,8 @@ public class GameBase {
     private AdjacencyMatrixGraph<Locale, Road> matrix;
     private Graph<Character, Aliance> map; // mudar isto para map e nao matrix
 
-    public void GameBase() {
-        this.matrix = new AdjacencyMatrixGraph<>(10000);
+    public GameBase() {
+        this.matrix = new AdjacencyMatrixGraph<>();
         this.map = new Graph<>(false);
     }
 
@@ -38,7 +38,6 @@ public class GameBase {
             }
 
         }
-        // searchForLocal(s, ll, l);
         return l;
     }
 
@@ -51,8 +50,8 @@ public class GameBase {
     }
 
     public void insertLocale(String n, int d) {
-        matrix.insertVertex(new Locale(n, d));
-
+        Locale al = new Locale(n, d);
+        matrix.insertVertex( al);
     }
 
     public void insertRoads(int d, Locale l1, Locale l2) {
@@ -114,8 +113,15 @@ public class GameBase {
         return clone;
     }
 
-    public Iterable<Character> todosAliados(Character dude) {
-        return map.adjVertices(dude);
+    public ArrayList<Character> todosAliados(Character dude) {
+        ArrayList<Character> list = new ArrayList<>();
+        if(map.adjVertices(dude) == null){
+            return list;
+        }
+        for(Character c : map.adjVertices(dude)){
+            list.add(c);
+        }
+        return list;
     }
 
     public float alianceMaisForte(LinkedList<Character> membros) {
