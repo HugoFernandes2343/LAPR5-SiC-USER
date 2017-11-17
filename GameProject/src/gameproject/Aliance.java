@@ -79,7 +79,7 @@ public class Aliance {
             return false;
         }
         Aliance that = (Aliance) obj;
-        
+
         if (!(power == that.power)) {
             return false;
         }
@@ -89,6 +89,25 @@ public class Aliance {
         return second.equals(that.second);
     }
 
+    public boolean equalsSemPower(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Aliance)) {
+            return false;
+        }
+        Aliance that = (Aliance) obj;
+        if (!(first.equals(that.first))) {
+            return false;
+        }
+        return second.equals(that.second);
+    }
+
+    @Override
+    public String toString() {
+        return "Aliance{" + "compatibilityFactor=" + compatibilityFactor + ", power=" + power + ", first=" + first.getName() + ", second=" + second.getName() + '}';
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

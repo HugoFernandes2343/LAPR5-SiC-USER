@@ -51,7 +51,7 @@ public class GameBase {
 
     public void insertLocale(String n, int d) {
         Locale al = new Locale(n, d);
-        matrix.insertVertex( al);
+        matrix.insertVertex(al);
     }
 
     public void insertRoads(int d, Locale l1, Locale l2) {
@@ -115,10 +115,10 @@ public class GameBase {
 
     public ArrayList<Character> todosAliados(Character dude) {
         ArrayList<Character> list = new ArrayList<>();
-        if(map.adjVertices(dude) == null){
+        if (map.adjVertices(dude) == null) {
             return list;
         }
-        for(Character c : map.adjVertices(dude)){
+        for (Character c : map.adjVertices(dude)) {
             list.add(c);
         }
         return list;
@@ -196,7 +196,10 @@ public class GameBase {
         if (!map.validVertex(a) || !map.validVertex(b) || a.equals(b)) {
             return null;
         }
-        ArrayList<Character> teste = (ArrayList<Character>) map.adjVertices(a);
+        LinkedList<Character> teste = new LinkedList<>();
+        for (Character c : map.adjVertices(a)) {
+            teste.add(c);
+        }
         if (teste.contains(b)) {
             return null;
         }
@@ -258,8 +261,10 @@ public class GameBase {
 
     public Graph<Character, Aliance> todasAliancasPossiveis() {
         Graph<Character, Aliance> novoMap = todasAliancasPublico();
-        LinkedList<Character> listaChar = (LinkedList<Character>) map.vertices();
-
+        LinkedList<Character> listaChar = new LinkedList<>();
+        for(Character c : map.vertices()){
+            listaChar.add(c);
+        }
         todasAliancasPossiveis(novoMap, listaChar);
         return novoMap;
 

@@ -5,6 +5,7 @@
  */
 package gameproject;
 
+import graphMap.Edge;
 import graphMap.Graph;
 import graphMatrix.AdjacencyMatrixGraph;
 import java.util.ArrayList;
@@ -22,22 +23,22 @@ import static org.junit.Assert.*;
  * @author Norberto Sousa
  */
 public class GameBaseTest {
-
+    
     public GameBaseTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
@@ -62,14 +63,14 @@ public class GameBaseTest {
         Locale expResult = new Locale(s, 100);
         instance.insertLocale(s, 100);
         instance.insertLocale("lisboa", 50);
-
+        
         Locale result = instance.searchForLocal(s);
         assertEquals("Pocura por local que existe, deve ser igual.", expResult, result);
-
-        expResult = null;
+        
+        expResult = new Locale();
         result = instance.searchForLocal("braga");
         assertEquals("Pocura por local que não existe, deve ser igual.", expResult, result);
-
+        
     }
 
     /**
@@ -79,7 +80,8 @@ public class GameBaseTest {
     public void testGetMatrix() {
         System.out.println("getMatrix");
         GameBase instance = new GameBase();
-        AdjacencyMatrixGraph<Locale, Road> expResult = null;
+        
+        AdjacencyMatrixGraph<Locale, Road> expResult = new AdjacencyMatrixGraph<>();
         AdjacencyMatrixGraph<Locale, Road> result = instance.getMatrix();
         assertEquals(expResult, result);
     }
@@ -91,7 +93,7 @@ public class GameBaseTest {
     public void testGetMap() {
         System.out.println("getMap");
         GameBase instance = new GameBase();
-        Graph<Character, Aliance> expResult = null;
+        Graph<Character, Aliance> expResult = new Graph<>(false);
         Graph<Character, Aliance> result = instance.getMap();
         assertEquals(expResult, result);
     }
@@ -102,11 +104,19 @@ public class GameBaseTest {
     @Test
     public void testCloneToDouble() {
         System.out.println("cloneToDouble");
-        AdjacencyMatrixGraph<Locale, Road> graph = new AdjacencyMatrixGraph<>();
         GameBase instance = new GameBase();
-        AdjacencyMatrixGraph<Locale, Double> expResult = null;
-        AdjacencyMatrixGraph<Locale, Double> result = instance.cloneToDouble(graph);
-        assertEquals(expResult, result);
+        Locale a = new Locale("porto", 50);
+        Locale b = new Locale("lisboa", 40);
+        instance.insertLocale("porto", 50);
+        instance.insertLocale("lisboa", 40);
+        instance.insertRoads(20, a, b);
+        
+        AdjacencyMatrixGraph<Locale, Double> expResult = new AdjacencyMatrixGraph<>();
+        expResult.insertVertex(a);
+        expResult.insertVertex(b);
+        expResult.insertEdge(a, b, 20.0);
+        AdjacencyMatrixGraph<Locale, Double> result = instance.cloneToDouble(instance.getMatrix());
+        assertEquals(expResult.edges(), result.edges());
     }
 
     /**
@@ -155,21 +165,21 @@ public class GameBaseTest {
         Character aliado = new Character("ali", 50, new Locale());
         Character inimigo = new Character("outro", 40, new Locale());
         GameBase instance = new GameBase();
-
+        
         instance.insertCharacter("dude", 40, new Locale());
         instance.insertCharacter("ali", 50, new Locale());
         instance.insertCharacter("outro", 40, new Locale());
         instance.insertAliance(false, 0.5f, 45, dude, aliado);
-
+        
         ArrayList<Character> expResult = new ArrayList<>();
         expResult.add(aliado);
         ArrayList<Character> result = instance.todosAliados(dude);
         assertEquals("deve retornar lista com um aliado", expResult, result);
-
+        
         expResult = new ArrayList<>();
         result = instance.todosAliados(inimigo);
         assertEquals("deve retornar lista vazia", expResult, result);
-
+        
         expResult = new ArrayList<>();
         result = instance.todosAliados(new Character());
         assertEquals("deve retornar lista vazia, vertice nao existe", expResult, result);
@@ -181,13 +191,30 @@ public class GameBaseTest {
     @Test
     public void testAlianceMaisForte() {
         System.out.println("alianceMaisForte");
-        LinkedList<Character> membros = null;
         GameBase instance = new GameBase();
-        float expResult = 0.0F;
-        float result = instance.alianceMaisForte(membros);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Character c = new Character("c", 20, new Locale());
+        Character d = new Character("d", 20, new Locale());
+        
+        LinkedList<Character> expResult = new LinkedList<>();
+        LinkedList<Character> result = new LinkedList<>();
+        float powerExp = 0.0F;
+        float power = instance.alianceMaisForte(result);
+        
+        assertEquals("Graph nao tem aliancas", powerExp, power, 0.0);
+        
+        instance.insertCharacter("a", 50, new Locale());
+        instance.insertCharacter("b", 50, new Locale());
+        instance.insertCharacter("c", 20, new Locale());
+        instance.insertCharacter("d", 20, new Locale());
+        instance.insertAliance(false, 0.5f, 50, a, b);
+        instance.insertAliance(false, 0.5f, 20, d, c);
+        expResult.add(a);
+        expResult.add(b);
+        power = instance.alianceMaisForte(result);
+        assertEquals("Graph tem aliancas", expResult, result);
+        
     }
 
     /**
@@ -214,15 +241,21 @@ public class GameBaseTest {
     @Test
     public void testNovaAlianca() {
         System.out.println("novaAlianca");
-        Graph<Character, Aliance> map = null;
-        Character a = null;
-        Character b = null;
         GameBase instance = new GameBase();
-        Aliance expResult = null;
-        Aliance result = instance.novaAlianca(map, a, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Character c1 = new Character("dude", 50, new Locale());
+        Character c2 = new Character("aliado", 50, new Locale());
+        instance.insertCharacter("dude", 50, new Locale());
+        instance.insertCharacter("aliado", 50, new Locale());
+        
+        Aliance expResult = new Aliance(false, 0.5f, 50, c1, c2);
+        
+        Aliance result = instance.novaAlianca(instance.getMap(), c1, c2);
+        assertEquals("Compara primeira personagem da alianca", expResult.getFirstCharacter().getName(), result.getFirstCharacter().getName());
+        assertEquals("Compara segunda personagem da alianca", expResult.getSecondCharacter().getName(), result.getSecondCharacter().getName());
+        
+        expResult = null;
+        result = instance.novaAlianca(instance.getMap(), c1, c2);
+        assertEquals("ja existe uma alianca entre as duas personagens", expResult, result);
     }
 
     /**
@@ -232,11 +265,52 @@ public class GameBaseTest {
     public void testTodasAliancasPossiveis() {
         System.out.println("todasAliancasPossiveis");
         GameBase instance = new GameBase();
-        Graph<Character, Aliance> expResult = null;
+        Graph<Character, Aliance> expResult = new Graph<>(false);
         Graph<Character, Aliance> result = instance.todasAliancasPossiveis();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("sem personagens", expResult, result);
+        
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Character c = new Character("c", 50, new Locale());
+        instance.insertCharacter("a", 50, new Locale());
+        instance.insertCharacter("b", 50, new Locale());
+        instance.insertCharacter("c", 50, new Locale());
+        expResult.insertVertex(a);
+        expResult.insertVertex(b);
+        expResult.insertVertex(c);
+        Aliance ab = new Aliance(true, 0.5f, 50, a, b);
+        Aliance bc = new Aliance(true, 0.5f, 50, b, c);
+        Aliance ca = new Aliance(true, 0.5f, 50, c, a);
+        expResult.insertEdge(a, b, ab, 50);
+        expResult.insertEdge(b, c, bc, 50);
+        expResult.insertEdge(c, a, ca, 50);
+        
+        result = instance.todasAliancasPossiveis();
+        int contExpected = 3;
+        int contResult = 0;
+        
+        ArrayList<Aliance> exp = new ArrayList<>();
+        ArrayList<Aliance> res = new ArrayList<>();
+        for (Edge<Character, Aliance> edge : expResult.edges()) {
+            if (!exp.contains(edge.getElement())) {
+                exp.add(edge.getElement());
+            }
+        }
+        for (Edge<Character, Aliance> edge2 : result.edges()) {
+            if (!res.contains(edge2.getElement())) {
+                res.add(edge2.getElement());
+            }
+        }
+        
+        for (Aliance al1 : exp) {
+            for (Aliance al2 : res) {
+                if (al1.equalsSemPower(al2) || (al1.getFirstCharacter().equals(al2.getSecondCharacter()) && al2.getFirstCharacter().equals(al1.getSecondCharacter()))) {
+                    contResult++;
+                }
+            }
+        }
+        assertEquals("com personagens", contExpected, contResult);
+        
     }
 
     /**
@@ -304,11 +378,9 @@ public class GameBaseTest {
         System.out.println("insertCharacter");
         String n = "";
         int s = 0;
-        Locale l = null;
+        Locale l = new Locale();
         GameBase instance = new GameBase();
         instance.insertCharacter(n, s, l);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -318,12 +390,12 @@ public class GameBaseTest {
     public void testInsertAliance() {
         System.out.println("insertAliance");
         boolean p = false;
-        float cf = 0.6F;
-        float pw = 0.0F;
-//        Character c1 = new Character("char1", );
-        Character c2 = null;
+        float cf = 0.5F;
+        float pw = 50;
+        Character c1 = new Character("dude", 50, new Locale());
+        Character c2 = new Character("aliado", 50, new Locale());
         GameBase instance = new GameBase();
-//        instance.insertAliance(p, cf, pw, c1, c2);
+        instance.insertAliance(p, cf, pw, c1, c2);
     }
 
     /**
@@ -332,13 +404,16 @@ public class GameBaseTest {
     @Test
     public void testSearchForCharacter() {
         System.out.println("searchForCharacter");
-        String s = "";
+        String s = "dude";
+        Character c1 = new Character(s, 50, new Locale());
         GameBase instance = new GameBase();
-        Character expResult = null;
+        Character expResult = c1;
+        instance.insertCharacter(s, 50, new Locale());
         Character result = instance.searchForCharacter(s);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("character existe, retorna o char", expResult, result);
+        
+        result = instance.searchForCharacter("falso");
+        assertEquals("character nao existe, retorna um char vazio", new Character(), result);
     }
-
+    
 }
