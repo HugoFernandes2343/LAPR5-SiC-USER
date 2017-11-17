@@ -86,7 +86,7 @@ public class GameBase {
         return c;
     }
 
-    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2,double dist) {
+    public LinkedList<Locale> caminhoMaisFacil(AdjacencyMatrixGraph<Locale, Road> matrix, Locale l1, Locale l2, double dist) {
         LinkedList<Locale> path = new LinkedList<>();
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
@@ -134,7 +134,7 @@ public class GameBase {
         return power;
     }
 
-     /**
+    /**
      * ALINEA 1.c)
      *
      * @param c
@@ -148,15 +148,11 @@ public class GameBase {
             return false;
         }
         LinkedList<Locale> locales = new LinkedList<>();
-        for (int i = 0; i < this.matrix.numVertices(); i++) {
-            if (c.equals(l.getOwner())) {
-                locales.add(l);
-            }
-        }
+        locales = getLocalesOfC(c);
         ArrayList<Double> conquerPowers = new ArrayList<>();
         LinkedList<LinkedList<Locale>> llPaths = new LinkedList<>();
         for (int i = 0; i < locales.size(); i++) {
-            llPaths.add(this.caminhoMaisFacil(matrix,l, l, conquerPowers.get(i)));
+            llPaths.add(this.caminhoMaisFacil(matrix, l, l, conquerPowers.get(i)));
         }
 
         if (llPaths.isEmpty()) {
@@ -273,18 +269,17 @@ public class GameBase {
         return novaMatrix;
     }
 
-
-    public float melhorLocAlConquista(Character pers, Locale dest, HashMap<Character, LinkedList<Locale>> listaLoc  ) {
+    public float melhorLocAlConquista(Character pers, Locale dest, HashMap<Character, LinkedList<Locale>> listaLoc) {
         if (!map.validVertex(pers) || !matrix.checkVertex(dest)) {
             return -1;
-        }        
-        
+        }
+
         Character melhorAliado = new Character();
         LinkedList<Locale> melhorCaminhoPath = new LinkedList<>();
         double melhorCaminhoDist = Double.MAX_VALUE;
         float destDiff = -1;
-
-        for (Locale loc : pers.getLocales()) {
+        LinkedList<Locale> locales = getLocalesOfC(pers);
+        for (Locale loc : locales) {
             for (Character aliado : map.adjVertices(pers)) {
                 AdjacencyMatrixGraph<Locale, Road> newMatrix = mundoSemLocaisAliados(aliado);
                 LinkedList<Locale> caminhoTemp = new LinkedList<>();
@@ -300,13 +295,23 @@ public class GameBase {
                 }
             }
         }
-        
+
         if (destDiff == -1 || melhorCaminhoPath == null) {
             return -1;
         }
-        
+
         listaLoc.put(melhorAliado, melhorCaminhoPath);
         return destDiff;
     }
 
+    private LinkedList<Locale> getLocalesOfC(Character c) {
+        LinkedList<Locale> locales = new LinkedList<>();
+        for (Locale l : this.matrix.vertices()) {
+            if (c.equals(l.getOwner())) {
+                locales.add(l);
+            }
+        }
+        return locales;
+
+    }
 }

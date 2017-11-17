@@ -304,7 +304,7 @@ public class FileReadTest {
         llCharacterTest.add(Pers9);
         
         assertEquals(llCharacterTest, llCharacterInput);
-        
+        System.out.println(Pers9.getStartingLocale().getName());
         
         LinkedList<Aliance> llAlianceTest = new LinkedList<>();
         
