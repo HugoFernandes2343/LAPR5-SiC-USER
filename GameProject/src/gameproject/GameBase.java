@@ -147,22 +147,35 @@ public class GameBase {
      * @param l
      * @return
      */
-    public boolean conquerLocale(Character c, Locale l, LinkedList<Locale> path, double str_conquer) {
+    public double conquerLocale(Character c, Locale l, LinkedList<Locale> path) {
         path.clear();
-        str_conquer = 0;
+        double str_conquer = 0;
         if (c == null) {
-            return false;
+            return -1;
         }
         LinkedList<Locale> locales = new LinkedList<>();
         locales = getLocalesOfC(c);
         ArrayList<Double> conquerPowers = new ArrayList<>();
         LinkedList<LinkedList<Locale>> llPaths = new LinkedList<>();
+
         for (int i = 0; i < locales.size(); i++) {
-            llPaths.add(this.caminhoMaisFacil(matrix, l, l, conquerPowers.get(i)));
+            double temp = 0;
+            LinkedList<Locale> tempPath = new LinkedList<>();
+            temp = this.caminhoMaisFacil(matrix, tempPath, locales.get(i), l);
+
+            llPaths.add(tempPath);
+            for (int j = 0; j < tempPath.size(); j++) {
+                if (!tempPath.get(j).getOwner().equals(c)) {
+                    temp = temp + tempPath.get(j).getDifficulty() + tempPath.get(j).getOwner().getStrength();
+
+                }
+            }
+            conquerPowers.add(temp);
+
         }
 
         if (llPaths.isEmpty()) {
-            return false;
+            return -1;
         }
 
         str_conquer = Double.MAX_VALUE;
@@ -172,11 +185,6 @@ public class GameBase {
 
             double str = conquerPowers.get(i);
 
-            for (int j = 1; j < llPaths.get(i).size(); j++) {
-                str += llPaths.get(i).get(j).getDifficulty();
-                str += llPaths.get(i).get(j).getOwner().getStrength();
-            }
-
             if (str < str_conquer) {
                 str_conquer = str;
                 pos = i;
@@ -184,12 +192,13 @@ public class GameBase {
 
         }
 
-        for (Locale loc : llPaths.get(pos)) {
-            path.add(l);
+        for (int i = 0; i < llPaths.get(pos).size(); i++) {
+            path.add(llPaths.get(pos).get(i));
         }
-
-        return !path.isEmpty();
-
+        if (path.isEmpty()) {
+            return -1;
+        }
+        return str_conquer;
     }
 
     public Aliance novaAlianca(Graph<Character, Aliance> map, Character a, Character b) {

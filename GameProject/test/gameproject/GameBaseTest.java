@@ -221,18 +221,50 @@ public class GameBaseTest {
      * Test of conquerLocale method, of class GameBase.
      */
     @Test
-    public void testConquerLocale() {
+   public void testConquerLocale() {
         System.out.println("conquerLocale");
-        Character c = null;
-        Locale l = null;
-        LinkedList<Locale> path = null;
-        double str_conquer = 0.0;
+
         GameBase instance = new GameBase();
-        boolean expResult = false;
-        boolean result = instance.conquerLocale(c, l, path, str_conquer);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        instance.insertLocale("Kyoto", 5);
+        instance.insertLocale("Argel", 3);
+        instance.insertLocale("Cartum", 6);
+        instance.insertLocale("Munique", 8);
+
+        Locale la = instance.searchForLocal("Kyoto");
+        Locale lb = instance.searchForLocal("Argel");
+        Locale lc = instance.searchForLocal("Cartum");
+        Locale ld = instance.searchForLocal("Munique");
+
+        instance.insertCharacter("Hilary", 7, lb);
+        instance.insertCharacter("Trump", 35, la);
+        instance.insertCharacter("Vladimir Putin", 6, lc);
+
+        Character h = instance.searchForCharacter("Hilary");
+        Character t = instance.searchForCharacter("Trump");
+        Character vp = instance.searchForCharacter("Vladimir Putin");
+        
+        instance.searchForLocal("Kyoto").setOwner(instance.searchForCharacter("Trump"));
+       instance.searchForLocal("Argel").setOwner(instance.searchForCharacter("Hilary"));
+        instance.searchForLocal("Cartum").setOwner(instance.searchForCharacter("Vladimir Putin"));
+        instance.searchForLocal("Munique").setOwner(instance.searchForCharacter("Trump"));
+       
+        instance.insertRoads(5, la, lb);
+        instance.insertRoads(6, lb, lc);
+        instance.insertRoads(40, la, lc);
+        instance.insertRoads(50, ld, lc);
+
+        LinkedList<Locale> path = new LinkedList<>();
+        LinkedList<Locale> expPath = new LinkedList<>();
+        expPath.add(instance.searchForLocal("Kyoto"));
+        expPath.add(instance.searchForLocal("Argel"));
+        expPath.add(instance.searchForLocal("Cartum"));
+                
+        double expResult = 33.0;
+        double result = instance.conquerLocale(t, lc, path);
+        
+        assertEquals(expResult,result,0.0);
+        assertEquals(expPath,path);
     }
 
     /**
