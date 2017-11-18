@@ -89,6 +89,11 @@ public class GameBase {
         AdjacencyMatrixGraph<Locale, Double> g = cloneToDouble(matrix);
 
         double dist = EdgeAsDoubleGraphAlgorithms.shortestPath(g, l1, l2, path);
+        if (!path.isEmpty()) {
+            for (int i = 1; i < path.size(); i++) {
+                dist = dist + path.get(i).getDifficulty();
+            }
+        }
         return dist;
     }
 
@@ -263,7 +268,7 @@ public class GameBase {
     public Graph<Character, Aliance> todasAliancasPossiveis() {
         Graph<Character, Aliance> novoMap = todasAliancasPublico();
         LinkedList<Character> listaChar = new LinkedList<>();
-        for(Character c : map.vertices()){
+        for (Character c : map.vertices()) {
             listaChar.add(c);
         }
         todasAliancasPossiveis(novoMap, listaChar);
@@ -281,29 +286,30 @@ public class GameBase {
         return novaMatrix;
     }
 
-    public float melhorLocAlConquista(Character pers, Locale dest, HashMap<Character, LinkedList<Locale>> listaLoc) {
+    public double melhorLocAlConquista(Character pers, Locale dest, Character aliado, LinkedList<Locale> listaLoc) {
         if (!map.validVertex(pers) || !matrix.checkVertex(dest)) {
             return -1;
         }
-
         Character melhorAliado = new Character();
         LinkedList<Locale> melhorCaminhoPath = new LinkedList<>();
         double melhorCaminhoDist = Double.MAX_VALUE;
         float destDiff = -1;
         LinkedList<Locale> locales = getLocalesOfC(pers);
         for (Locale loc : locales) {
-            for (Character aliado : map.adjVertices(pers)) {
-                AdjacencyMatrixGraph<Locale, Road> newMatrix = mundoSemLocaisAliados(aliado);
+            for (Character ali : map.adjVertices(pers)) {
+                AdjacencyMatrixGraph<Locale, Road> newMatrix = mundoSemLocaisAliados(ali);
                 LinkedList<Locale> caminhoTemp = new LinkedList<>();
 
                 double distTemp = caminhoMaisFacil(newMatrix, caminhoTemp, loc, dest);
-                float aliancePower = map.getEdge(pers, aliado).getElement().getPower();
+                float aliancePower = map.getEdge(pers, ali).getElement().getPower();
                 destDiff = matrix.getEdge(caminhoTemp.get(caminhoTemp.size() - 2), caminhoTemp.peekLast()).getDifficulty() + dest.getDifficulty();
+                System.out.println("forca localx: " + destDiff);
+//                destDiff = 
 
                 if (distTemp < melhorCaminhoDist && aliancePower > destDiff) {
                     melhorCaminhoPath = caminhoTemp;
                     melhorCaminhoDist = distTemp;
-                    melhorAliado = aliado;
+                    melhorAliado = ali;
                 }
             }
         }
@@ -311,9 +317,9 @@ public class GameBase {
         if (destDiff == -1 || melhorCaminhoPath == null) {
             return -1;
         }
-
-        listaLoc.put(melhorAliado, melhorCaminhoPath);
-        return destDiff;
+        aliado = melhorAliado;
+        listaLoc = melhorCaminhoPath;
+        return melhorCaminhoDist;
     }
 
     private LinkedList<Locale> getLocalesOfC(Character c) {

@@ -226,10 +226,12 @@ public class GameBaseTest {
         expPath.add(instance.searchForLocal("Argel"));
         expPath.add(instance.searchForLocal("Cartum"));
                 
-        double expResult = 33.0;
+        double expResult = 42.0;
         double result = instance.conquerLocale(t, lc, path);
         
         assertEquals(expResult,result,0.0);
+        System.out.println(expPath);
+        System.out.println(path);
         assertEquals(expPath,path);
     }
 
@@ -339,15 +341,67 @@ public class GameBaseTest {
     @Test
     public void testMelhorLocAlConquista() {
         System.out.println("melhorLocAlConquista");
-        Character pers = null;
-        Locale dest = null;
-        HashMap<Character, LinkedList<Locale>> listaLoc = null;
         GameBase instance = new GameBase();
-        float expResult = 0.0F;
-        float result = instance.melhorLocAlConquista(pers, dest, listaLoc);
+        Character persona = new Character("char0", 195, new Locale());
+        Locale local0 = new Locale("Local0", 30);
+        Locale local1 = new Locale("Local1", 29);
+        local0.setOwner(persona);
+        instance.getMap().insertVertex(persona);
+        Road path1 = new Road(local0, local1, 29);
+        instance.getMatrix().insertVertex(local0);
+        instance.getMatrix().insertVertex(local1);
+        instance.getMatrix().insertEdge(local0, local1, path1);
+        Character escolhido = new Character();
+        LinkedList<Locale> caminho = new LinkedList<>();
+        double expResult = -1.0;
+        double result = instance.melhorLocAlConquista(persona, local1, escolhido, caminho);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        System.out.println("canConquerAliados-test 2");
+        Character aliado1 = new Character("Pers1", 111, new Locale());
+        instance.getMap().insertVertex(aliado1);
+        instance.novaAlianca(instance.getMap(), aliado1, persona);//alianca = true
+        Character aliado2 = new Character("Pers2", 112, new Locale());
+        instance.getMap().insertVertex(aliado2);
+        instance.novaAlianca(instance.getMap(), aliado2, persona);//alianca = false
+        Locale local2 = new Locale("Local2", 21);
+        Locale local3 = new Locale("Local3", 23);
+        local2.setOwner(aliado1);
+        local3.setOwner(aliado2);
+        
+        Locale local4 = new Locale("Local4", 30);
+        Locale local5 = new Locale("Local5", 23);
+        Locale local6 = new Locale("Local6", 27);
+        Locale local7 = new Locale("Local7", 100);
+        instance.getMatrix().insertVertex(local2);
+        instance.getMatrix().insertVertex(local3);
+        instance.getMatrix().insertVertex(local4);
+        instance.getMatrix().insertVertex(local5);
+        instance.getMatrix().insertVertex(local6);
+        instance.getMatrix().insertVertex(local7);
+        
+        Road path2 = new Road(local1, local2, 10);
+        Road path3 = new Road(local2, local3, 21);
+        Road path4 = new Road(local2, local3, 5);
+        Road path5 = new Road(local0, local5, 10);
+        Road path6 = new Road(local5, local6, 10);
+        Road path7 = new Road(local0, local7, 19);
+        Road path8 = new Road(local7, local4, 37);
+        Road path9 = new Road(local6, local4, 10);
+        
+        instance.getMatrix().insertEdge(local1, local2, path2);
+        instance.getMatrix().insertEdge(local2, local3, path3);
+        instance.getMatrix().insertEdge(local2, local3, path4);
+        instance.getMatrix().insertEdge(local0, local5, path5);
+        instance.getMatrix().insertEdge(local5, local6, path6);
+        instance.getMatrix().insertEdge(local0, local7, path7);
+        instance.getMatrix().insertEdge(local7, local4, path8);
+        instance.getMatrix().insertEdge(local6, local4, path9);
+        escolhido = new Character();
+        caminho = new LinkedList<>();
+        double expected = 110.0f;
+        double resultado = instance.melhorLocAlConquista(persona, local4, escolhido, caminho);
+        assertEquals(expected, resultado, 0.0);
     }
 
     /**
@@ -448,13 +502,13 @@ public class GameBaseTest {
         instance.insertRoads(r2.getDifficulty(), r2.getFirst(), r2.getSecond());
         instance.insertRoads(r4.getDifficulty(), r4.getFirst(), r4.getSecond());
         
-        double expResult = 20.0;
+        double expResult = 40.0;
         double result = instance.caminhoMaisFacil(instance.getMatrix(), path, A, B);
         assertEquals("Existe caminho",expResult, result, 0.0);
         
         expResult = -1;
         result = instance.caminhoMaisFacil(instance.getMatrix(), path, A, E);
-        assertEquals("Nao xiste caminho",expResult, result, 0.0);
+        assertEquals("Nao existe caminho",expResult, result, 0.0);
     }
     
 }
