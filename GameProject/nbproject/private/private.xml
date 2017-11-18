@@ -5,10 +5,13 @@
         <group>
             <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/Aliance.java</file>
             <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/Locale.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/test/gameproject/GameBaseTest.java</file>
             <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/graphMatrix/EdgeAsDoubleGraphAlgorithms.java</file>
-            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/graphMatrix/GraphAlgorithms.java</file>
             <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/GameBase.java</file>
-            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/Character.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/graphMap/Graph.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/FileRead.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/gameproject/Road.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Isep/ESINF/Trabalho/GameProject/src/graphMatrix/AdjacencyMatrixGraph.java</file>
         </group>
     </open-files>
 </project-private>

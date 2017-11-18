@@ -317,13 +317,20 @@ public class GameBaseTest {
     @Test
     public void testMundoSemLocaisAliados() {
         System.out.println("mundoSemLocaisAliados");
-        Character aliado = null;
+        Locale loc = new Locale("porto", 20);
+        Character aliado = new Character ("aliado", 30,loc );
+        loc.setOwner(aliado);
         GameBase instance = new GameBase();
-        AdjacencyMatrixGraph<Locale, Road> expResult = null;
-        AdjacencyMatrixGraph<Locale, Road> result = instance.mundoSemLocaisAliados(aliado);
+        instance.getMatrix().insertVertex(loc);
+        
+        AdjacencyMatrixGraph<Locale, Road> graphRes = instance.mundoSemLocaisAliados(aliado);
+        LinkedList<Locale> expResult = new LinkedList<>();
+        LinkedList<Locale> result = new LinkedList<>();
+        for(Locale l : graphRes.vertices()){
+            result.add(l);
+            System.out.println(l.getOwner().getName());
+        }
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
