@@ -230,8 +230,6 @@ public class GameBaseTest {
         double result = instance.conquerLocale(t, lc, path);
         
         assertEquals(expResult,result,0.0);
-        System.out.println(expPath);
-        System.out.println(path);
         assertEquals(expPath,path);
     }
 

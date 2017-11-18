@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author hugod
  */
 public class RoadsTest {
-    
+
     public RoadsTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,8 +47,6 @@ public class RoadsTest {
         int expResult = 0;
         int result = instance.getDifficulty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,11 +55,12 @@ public class RoadsTest {
     @Test
     public void testSetDifficulty() {
         System.out.println("setDifficulty");
-        int difficulty = 0;
+        int difficulty = 50;
         Road instance = new Road();
         instance.setDifficulty(difficulty);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = difficulty;
+        int result = instance.getDifficulty();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -70,12 +69,12 @@ public class RoadsTest {
     @Test
     public void testGetFirst() {
         System.out.println("getFirst");
-        Road instance = new Road();
-        Locale expResult = null;
+        Locale a = new Locale("a", 50);
+        Locale b = new Locale("b", 50);
+        Road instance = new Road(a, b, 20);
+        Locale expResult = a;
         Locale result = instance.getFirst();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -84,11 +83,13 @@ public class RoadsTest {
     @Test
     public void testSetFirst() {
         System.out.println("setFirst");
-        Locale first = null;
-        Road instance = new Road();
-        instance.setFirst(first);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Locale a = new Locale("a", 50);
+        Locale b = new Locale("b", 50);
+        Road instance = new Road(new Locale(), new Locale(), 20);
+        instance.setFirst(a);
+        Locale expResult = a;
+        Locale result = instance.getFirst();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -97,12 +98,12 @@ public class RoadsTest {
     @Test
     public void testGetSecond() {
         System.out.println("getSecond");
-        Road instance = new Road();
-        Locale expResult = null;
+        Locale a = new Locale("a", 50);
+        Locale b = new Locale("b", 50);
+        Road instance = new Road(a, b, 20);
+        Locale expResult = b;
         Locale result = instance.getSecond();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,25 +112,13 @@ public class RoadsTest {
     @Test
     public void testSetSecond() {
         System.out.println("setSecond");
-        Locale second = null;
-        Road instance = new Road();
-        instance.setSecond(second);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of hashCode method, of class Road.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Road instance = new Road();
-        int expResult = 0;
-        int result = instance.hashCode();
+        Locale a = new Locale("a", 50);
+        Locale b = new Locale("b", 50);
+        Road instance = new Road(new Locale(), new Locale(), 20);
+        instance.setFirst(b);
+        Locale expResult = b;
+        Locale result = instance.getFirst();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,13 +127,13 @@ public class RoadsTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        Road instance = new Road();
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
+        Locale a = new Locale("a", 50);
+        Locale b = new Locale("b", 50);
+        Road instance = new Road(a, b, 20);
+        boolean expResult = true;
+        boolean result = instance.equals(instance);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
-    
+
 }

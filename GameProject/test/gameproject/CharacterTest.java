@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author hugod
  */
 public class CharacterTest {
-    
+
     public CharacterTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,8 +47,6 @@ public class CharacterTest {
         String expResult = "";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,11 +55,13 @@ public class CharacterTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "";
+        String name = "a";
         Character instance = new Character();
         instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String expResult = name;
+        String result = instance.getName();
+        assertEquals(expResult, result);
+
     }
 
     /**
@@ -74,8 +74,6 @@ public class CharacterTest {
         int expResult = 0;
         int result = instance.getStrength();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -87,8 +85,9 @@ public class CharacterTest {
         int strength = 0;
         Character instance = new Character();
         instance.setStrength(strength);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = strength;
+        int result = instance.getStrength();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -97,12 +96,11 @@ public class CharacterTest {
     @Test
     public void testGetStartingLocale() {
         System.out.println("getStartingLocale");
-        Character instance = new Character();
-        Locale expResult = null;
+        Locale test = new Locale("porto", 40);
+        Character instance = new Character("dude", 50, test);
+        Locale expResult = test;
         Locale result = instance.getStartingLocale();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,11 +109,12 @@ public class CharacterTest {
     @Test
     public void testSetStartingLocale() {
         System.out.println("setStartingLocale");
-        Locale l = null;
-        Character instance = new Character();
+        Locale l = new Locale("porto", 40);
+        Character instance = new Character("dude", 50, new Locale());
         instance.setStartingLocale(l);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Locale expResult = l;
+        Locale result = instance.getStartingLocale();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -124,27 +123,11 @@ public class CharacterTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        Character instance = new Character();
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
+        Character instance = new Character("dude", 50, new Locale());
+        Character instance2 = new Character("dude", 50, new Locale());
+        boolean expResult = true;
+        boolean result = instance.equals(instance2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of hashCode method, of class Character.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Character instance = new Character();
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

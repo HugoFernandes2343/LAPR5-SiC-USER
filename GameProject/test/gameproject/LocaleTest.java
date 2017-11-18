@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author hugod
  */
 public class LocaleTest {
-    
+
     public LocaleTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,8 +47,6 @@ public class LocaleTest {
         String expResult = "";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +55,12 @@ public class LocaleTest {
     @Test
     public void testGetOwner() {
         System.out.println("getOwner");
-        Locale instance = new Locale();
-        Character expResult = null;
+        Locale instance = new Locale("porto", 50);
+        Character c = new Character("dude", 40, instance);
+        instance.setOwner(c);
+        Character expResult = c;
         Character result = instance.getOwner();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -75,8 +73,6 @@ public class LocaleTest {
         int expResult = 0;
         int result = instance.getDifficulty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -85,11 +81,12 @@ public class LocaleTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String n = "";
+        String n = "porto";
         Locale instance = new Locale();
         instance.setName(n);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String expResult = n;
+        String result = instance.getName();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -98,11 +95,12 @@ public class LocaleTest {
     @Test
     public void testSetOwner() {
         System.out.println("setOwner");
-        Character o = null;
-        Locale instance = new Locale();
-        instance.setOwner(o);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Locale instance = new Locale("porto", 50);
+        Character c = new Character("dude", 40, instance);
+        instance.setOwner(c);
+        Character expResult = c;
+        Character result = instance.getOwner();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -111,11 +109,12 @@ public class LocaleTest {
     @Test
     public void testSetDifficulty() {
         System.out.println("setDifficulty");
-        int d = 0;
+        int d = 50;
         Locale instance = new Locale();
         instance.setDifficulty(d);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = d;
+        int result = instance.getDifficulty();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -125,26 +124,9 @@ public class LocaleTest {
     public void testEquals() {
         System.out.println("equals");
         Object obj = null;
-        Locale instance = new Locale();
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
+        Locale instance = new Locale("porto", 50);
+        boolean expResult = true;
+        boolean result = instance.equals(instance);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of hashCode method, of class Locale.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Locale instance = new Locale();
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

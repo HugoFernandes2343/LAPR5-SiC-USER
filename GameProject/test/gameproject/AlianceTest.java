@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author hugod
  */
 public class AlianceTest {
-    
+
     public AlianceTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,12 +43,12 @@ public class AlianceTest {
     @Test
     public void testGetPriv() {
         System.out.println("getPriv");
-        Aliance instance = new Aliance();
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(false, 20, 50, a, b);
         boolean expResult = false;
         boolean result = instance.getPriv();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +57,12 @@ public class AlianceTest {
     @Test
     public void testGetCompatibilityFactor() {
         System.out.println("getCompatibilityFactor");
-        Aliance instance = new Aliance();
-        float expResult = 0.0F;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(false, 20, 50, a, b);
+        float expResult = 20;
         float result = instance.getCompatibilityFactor();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -71,12 +71,12 @@ public class AlianceTest {
     @Test
     public void testGetPower() {
         System.out.println("getPower");
-        Aliance instance = new Aliance();
-        float expResult = 0.0F;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(false, 20, 50, a, b);
+        float expResult = 50;
         float result = instance.getPower();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -85,12 +85,12 @@ public class AlianceTest {
     @Test
     public void testGetFirstCharacter() {
         System.out.println("getFirstCharacter");
-        Aliance instance = new Aliance();
-        Character expResult = null;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(false, 20, 50, a, b);
+        Character expResult = a;
         Character result = instance.getFirstCharacter();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -99,12 +99,12 @@ public class AlianceTest {
     @Test
     public void testGetSecondCharacter() {
         System.out.println("getSecondCharacter");
-        Aliance instance = new Aliance();
-        Character expResult = null;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(false, 20, 50, a, b);
+        Character expResult = b;
         Character result = instance.getSecondCharacter();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -114,10 +114,13 @@ public class AlianceTest {
     public void testSetPriv() {
         System.out.println("setPriv");
         boolean p = false;
-        Aliance instance = new Aliance();
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, a, b);
         instance.setPriv(p);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean expResult = false;
+        boolean result = instance.getPriv();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -126,11 +129,14 @@ public class AlianceTest {
     @Test
     public void testSetCompatibilityFactor() {
         System.out.println("setCompatibilityFactor");
-        float cf = 0.0F;
-        Aliance instance = new Aliance();
-        instance.setCompatibilityFactor(cf);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float p = 1;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, a, b);
+        instance.setCompatibilityFactor(p);
+        float expResult = 1;
+        float result = instance.getCompatibilityFactor();
+        assertEquals(expResult, result, 0.0);
     }
 
     /**
@@ -139,11 +145,14 @@ public class AlianceTest {
     @Test
     public void testSetPower() {
         System.out.println("setPower");
-        float p = 0.0F;
-        Aliance instance = new Aliance();
+        float p = 1;
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, a, b);
         instance.setPower(p);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float expResult = 1;
+        float result = instance.getPower();
+        assertEquals(expResult, result, 0.0);
     }
 
     /**
@@ -152,11 +161,13 @@ public class AlianceTest {
     @Test
     public void testSetFirstCharacter() {
         System.out.println("setFirstCharacter");
-        Character f = null;
-        Aliance instance = new Aliance();
-        instance.setFirstCharacter(f);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, new Character(), b);
+        instance.setFirstCharacter(a);
+        Character expResult = a;
+        Character result = instance.getFirstCharacter();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -165,11 +176,13 @@ public class AlianceTest {
     @Test
     public void testSetSecondCharacter() {
         System.out.println("setSecondCharacter");
-        Character s = null;
-        Aliance instance = new Aliance();
-        instance.setSecondCharacter(s);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, a, new Character());
+        instance.setSecondCharacter(b);
+        Character expResult = b;
+        Character result = instance.getSecondCharacter();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -178,27 +191,13 @@ public class AlianceTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = null;
-        Aliance instance = new Aliance();
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
+        Character a = new Character("a", 50, new Locale());
+        Character b = new Character("b", 50, new Locale());
+        Aliance instance = new Aliance(true, 20, 50, a, new Character());
+        Aliance instance2 = new Aliance(true, 20, 50, a, new Character());
+        boolean expResult = true;
+        boolean result = instance.equals(instance2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of hashCode method, of class Aliance.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Aliance instance = new Aliance();
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
