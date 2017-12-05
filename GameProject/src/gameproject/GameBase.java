@@ -304,7 +304,6 @@ public class GameBase {
                 float aliancePower = map.getEdge(pers, ali).getElement().getPower();
                 destDiff = matrix.getEdge(caminhoTemp.get(caminhoTemp.size() - 2), caminhoTemp.peekLast()).getDifficulty() + dest.getDifficulty();
                 System.out.println("forca localx: " + destDiff);
-//                destDiff = 
 
                 if (distTemp < melhorCaminhoDist && aliancePower > destDiff) {
                     melhorCaminhoPath = caminhoTemp;
