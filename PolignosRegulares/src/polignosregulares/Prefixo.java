@@ -16,7 +16,7 @@ public class Prefixo implements Comparable {
 
     private int numeroLados;
 
-    public Prefixo(String p, int nl) {
+    public Prefixo(int nl, String p) {
         this.Pref = p;
         this.numeroLados = nl;
     }
