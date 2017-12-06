@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package polignosregulares;
 
 import PL.AVL;
+import PL.BST;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +12,7 @@ import java.util.stream.Collectors;
  *
  * @author hugod
  */
-public class polignosRegularesBase {
+public class polignosRegularesBase extends BST {
 
     private AVL unid;
     private AVL dez;
@@ -40,12 +36,9 @@ public class polignosRegularesBase {
         return dez;
     }
 
- 
-
     public AVL getCent() {
         return cent;
     }
-
 
     private void ler(String txt, int n) throws IOException {
         List<Object> lines = Files.lines(Paths.get(txt)).collect(Collectors.toList());
@@ -53,17 +46,19 @@ public class polignosRegularesBase {
         for (int i = 0; i < lines.size(); i++) {
             String line = (String) lines.get(i);
             String[] input = line.split(";");
-            Prefixo pol = new Prefixo(Integer.parseInt(input[0]),input[1]);
-            if(n == 1){
+            Prefixo pol = new Prefixo(Integer.parseInt(input[0]), input[1]);
+            if (n == 1) {
                 unid.insert(pol);
             }
-            if(n==2){
+            if (n == 2) {
                 dez.insert(pol);
             }
-            if(n==3){
+            if (n == 3) {
                 cent.insert(pol);
             }
         }
     }
+
+    
 
 }

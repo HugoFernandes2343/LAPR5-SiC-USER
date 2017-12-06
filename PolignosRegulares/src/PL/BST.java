@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  *
  * @author DEI-ESINF
+ * @param <E>
  */
 public class BST<E extends Comparable<E>> implements BSTInterface<E> {
 
@@ -80,6 +81,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     * Verifies if the tree is empty
     * @return true if the tree is empty, false otherwise
      */
+    @Override
     public boolean isEmpty() {
         return root == null;
     }
@@ -87,6 +89,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     /*
     * Inserts an element in the tree.
      */
+    @Override
     public void insert(E element) {
         if (root == null) {
             root = new Node<>(null, null, null);
@@ -123,6 +126,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * Removes an element from the tree maintaining its consistency as a Binary
      * Search Tree.
      */
+    @Override
     public void remove(E element) {
         root = remove(element, root());
     }
@@ -159,6 +163,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     * Returns the number of nodes in the tree.
     * @return number of nodes in the tree
      */
+    @Override
     public int size() {
         return size(root);
     }
@@ -176,6 +181,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     * Returns the height of the tree
     * @return height 
      */
+    @Override
     public int height() {
         return height(root);
     }
@@ -198,6 +204,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      *
      * @return the smallest element within the tree
      */
+    @Override
     public E smallestElement() {
         return smallestElement(root);
     }
@@ -214,6 +221,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * Returns the Node containing a specific Element, or null otherwise.
      *
      * @param element the element to find
+     * @param node
      * @return the Node that contains the Element, or null otherwise
      *
      * This method despite not being essential is very useful. It is written
@@ -221,19 +229,18 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * recoding. So its access level is protected
      */
     protected Node<E> find(E element, Node<E> node) {
-        if (node == null) {
+       if (node == null) {
             return null;
         }
         if (node.getElement().compareTo(element) == 0) {
             return node;
         }
 
-        if (element.compareTo(node.getElement()) < 0) { //se o elemento é menor que o elemento do nó atual então (se existir estará à esquerda)
+        if (element.compareTo(node.getElement()) < 0) { 
             return find(element, node.getLeft());
         }
-        //if (element.compareTo(node.getElement()) > 0) { //se o elemento é menor que o elemento do nó atual então (se existir estará à esquerda)
+
         return find(element, node.getRight());
-        // }
 
     }
 
@@ -242,6 +249,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
    * Returns an iterable collection of elements of the tree, reported in in-order.
    * @return iterable collection of the tree's elements reported in in-order
      */
+    @Override
     public Iterable<E> inOrder() {
         List<E> snapshot = new ArrayList<>();
         if (root != null) {
@@ -272,6 +280,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      *
      * @return iterable collection of the tree's elements reported in pre-order
      */
+    @Override
     public Iterable<E> preOrder() {
         List<E> snapshot = new ArrayList<>();
         if (root != null) {
@@ -303,6 +312,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      *
      * @return iterable collection of the tree's elements reported in post-order
      */
+    @Override
     public Iterable<E> posOrder() {
         List<E> snapshot = new ArrayList<>();
         if (root != null) {
@@ -337,6 +347,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     * Returns a map with a list of nodes by each tree level.
     * @return a map with a list of nodes by each tree level
      */
+    @Override
     public Map<Integer, List<E>> nodesByLevel() {
         int height = height(root);
         Map<Integer, List<E>> result = new HashMap<>();
@@ -354,7 +365,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
 
         List<E> lresult;
         if (result.size() == level) {
-            lresult = new LinkedList<E>();
+            lresult = new LinkedList<>();
             result.put(level, lresult);
         } else {
             lresult = result.get(level);
@@ -369,6 +380,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
     /**
      * Returns a string representation of the tree. Draw the tree horizontally
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         toStringRec(root, 0, sb);

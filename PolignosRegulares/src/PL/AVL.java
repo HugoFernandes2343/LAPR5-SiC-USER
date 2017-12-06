@@ -10,7 +10,7 @@ package PL;
  * @author DEI-ESINF
  * @param <E>
  */
-public class AVL<E extends Comparable<E>> extends BST<E> {
+public class  AVL<E extends Comparable<E>> extends BST<E> {
 
     private int balanceFactor(Node<E> node) {
 
@@ -125,8 +125,13 @@ public class AVL<E extends Comparable<E>> extends BST<E> {
         return node;
     }
 
-    public boolean equals(AVL<E> second) {
-        return equals(root, second.root);
+    @Override
+    public boolean equals(Object second) {
+        if (!(second instanceof AVL)) {
+            return false;
+        }
+        AVL other = (AVL) second;
+        return equals(root, other.root);
     }
 
     public boolean equals(Node<E> root1, Node<E> root2) {
@@ -146,3 +151,4 @@ public class AVL<E extends Comparable<E>> extends BST<E> {
     }
 
 }
+
