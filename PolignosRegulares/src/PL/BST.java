@@ -217,6 +217,14 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
 
     }
 
+    public E find(E element) {
+        Node<E> node = find(element, root);
+        if (node == null) {
+            return null;
+        }
+        return node.getElement();
+    }
+
     /**
      * Returns the Node containing a specific Element, or null otherwise.
      *
@@ -229,14 +237,14 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
      * recoding. So its access level is protected
      */
     protected Node<E> find(E element, Node<E> node) {
-       if (node == null) {
+        if (node == null) {
             return null;
         }
         if (node.getElement().compareTo(element) == 0) {
             return node;
         }
 
-        if (element.compareTo(node.getElement()) < 0) { 
+        if (element.compareTo(node.getElement()) < 0) {
             return find(element, node.getLeft());
         }
 

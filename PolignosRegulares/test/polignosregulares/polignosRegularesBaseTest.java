@@ -7,6 +7,10 @@ package polignosregulares;
 
 import PL.AVL;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -118,6 +122,47 @@ public class polignosRegularesBaseTest {
         expResult.insert(new Prefixo(900, "enneahecta"));
         AVL result = instance.getCent();
         assertTrue(result.equals(expResult));
+    }
+
+    /**
+     * Test of getNomePoligno method, of class polignosRegularesBase.
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testGetNomePoligno() throws IOException {
+        System.out.println("getNomePoligno");
+        
+        polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
+        List<Object> input = Files.lines(Paths.get("teste_lados_nome.txt")).collect(Collectors.toList());
+
+        for (Object data : input) {
+            String l = (String) data;
+            String[] polygon = l.split(";");
+            assertEquals(polygon[1], instance.getNomePoligno(Integer.parseInt(polygon[0])));
+        }
+    }
+
+    /**
+     * Test of getFullPolygonTree method, of class polignosRegularesBase.
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testGetArvoreCompeta() throws IOException {
+        System.out.println("getArvoreCompleta");
+       
+        polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
+        AVL expResult = new AVL();
+        List<Object> input = Files.lines(Paths.get("teste_lados_nome.txt")).collect(Collectors.toList());
+       
+        for (Object data : input) {
+            String l = (String) data;
+            String[] polygon = l.split(";");
+            expResult.insert(new Prefixo(Integer.parseInt(polygon[0]), polygon[1]));
+        }
+        
+        AVL result = instance.getArvoreCompleta();
+        assertEquals(expResult, result);
+
     }
 
 }
