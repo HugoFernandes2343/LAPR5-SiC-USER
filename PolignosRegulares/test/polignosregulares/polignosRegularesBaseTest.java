@@ -208,7 +208,6 @@ public class polignosRegularesBaseTest {
         polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
         Prefixo expResult = new Prefixo(512, "pentahectadodecagon");
         Prefixo result = instance.findLCA(a, b);
-        System.out.println(result.getNumeroLados()+ " : "+ result.getPref());
         assertEquals(expResult, result);
     }
 

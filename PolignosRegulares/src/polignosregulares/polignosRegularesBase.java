@@ -192,9 +192,7 @@ public class polignosRegularesBase extends BST {
         
         Prefixo temp = root.getElement();
         
-        if (temp.getNumeroLados() > p.getNumeroLados() && temp.getNumeroLados() < s.getNumeroLados()) {
-            return temp;
-        } else if (temp.getNumeroLados() > p.getNumeroLados() && temp.getNumeroLados() > s.getNumeroLados()) {
+        if (temp.getNumeroLados() > p.getNumeroLados() && temp.getNumeroLados() > s.getNumeroLados()) {
             return findLCA(root.getLeft(), p, s);
         } else if (temp.getNumeroLados() < p.getNumeroLados() && temp.getNumeroLados() < s.getNumeroLados()) {
             return findLCA(root.getRight(), p, s);
