@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class polignosRegularesBase extends BST {
 
     private AVL unid;
@@ -74,7 +73,7 @@ public class polignosRegularesBase extends BST {
         if ((n % 100) < 30 && (n % 100) >= 10) {
             dezPrefixo = (Prefixo) dez.find(new Prefixo((n % 100)));
         }
-        
+
         if ((n % 100) < 10) {
             unidPrefixo = (Prefixo) unid.find(new Prefixo((n % 100)));
         }
@@ -150,4 +149,60 @@ public class polignosRegularesBase extends BST {
         }
         return polList;
     }
+
+    /**
+     * f)
+     * 
+     * Dados dois nomes de polígonos encontrar o seu Lowest Common Ancestor (antecessor comum mais
+     * próximo) na árvore binária.
+     * 
+     * @param a
+     * @param b
+     * @return 
+     */
+    public Prefixo findLCA(String a, String b) {
+        AVL arvoreCompleta = getArvoreCompleta();
+        Prefixo pa = new Prefixo(getNrLados(a), a);
+        Prefixo pb = new Prefixo(getNrLados(b), b);
+        if (pa.equals(pb)) {
+            return pa;
+        }
+        Prefixo prim, seg;
+        if (pa.getNumeroLados() > pb.getNumeroLados()) {
+            prim = pa;
+            seg = pb;
+        } else {
+            prim = pb;
+            seg = pa;
+        }
+        return findLCA(arvoreCompleta.root(), prim, seg);
+    }
+
+    /**
+     * f) continuação
+     * 
+     * Metodo privado para a recursividade
+     * 
+     * @param root
+     * @param p
+     * @param s
+     * @return 
+     */
+    private Prefixo findLCA(AVL.Node<Prefixo> root, Prefixo p, Prefixo s) {
+        if (root == null) {
+            return null;
+        }
+        
+        Prefixo temp = root.getElement();
+        
+        if (temp.getNumeroLados() > p.getNumeroLados() && temp.getNumeroLados() < s.getNumeroLados()) {
+            return temp;
+        } else if (temp.getNumeroLados() > p.getNumeroLados() && temp.getNumeroLados() > s.getNumeroLados()) {
+            return findLCA(root.getLeft(), p, s);
+        } else if (temp.getNumeroLados() < p.getNumeroLados() && temp.getNumeroLados() < s.getNumeroLados()) {
+            return findLCA(root.getRight(), p, s);
+        }
+        return temp;
+    }
+
 }
