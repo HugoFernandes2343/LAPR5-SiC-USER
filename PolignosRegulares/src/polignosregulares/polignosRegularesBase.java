@@ -5,13 +5,12 @@ import PL.BST;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author hugod
- */
+
 public class polignosRegularesBase extends BST {
 
     private AVL unid;
@@ -60,23 +59,22 @@ public class polignosRegularesBase extends BST {
     }
 
     /**
-     * b) 
-     * Com base nas três árvores anteriores elabore um método que devolve o
+     * b) Com base nas três árvores anteriores elabore um método que devolve o
      * nome de um polígono dado o seu número de lados. Por exemplo, 524 é
      * pentahecta-icosi-tetra-gon -> pentahectaicositetragon
      *
      * @param n numero de lados do poligno
      * @return nome do poligno
      */
-    
     public String getNomePoligno(int n) {
-        int centenas = (n/100)*100;
+        int centenas = (n / 100) * 100;
         Prefixo centPrefixo = (Prefixo) cent.find(new Prefixo(centenas));
         Prefixo dezPrefixo = null;
+        Prefixo unidPrefixo = null;
         if ((n % 100) < 30 && (n % 100) >= 10) {
             dezPrefixo = (Prefixo) dez.find(new Prefixo((n % 100)));
         }
-        Prefixo unidPrefixo = null;
+        
         if ((n % 100) < 10) {
             unidPrefixo = (Prefixo) unid.find(new Prefixo((n % 100)));
         }
@@ -98,20 +96,58 @@ public class polignosRegularesBase extends BST {
     }
 
     /**
-     * c) 
-     * Com base nas três árvores anteriores construa uma árvore balanceada
+     * c) Com base nas três árvores anteriores construa uma árvore balanceada
      * que contenha todos os nomes de polígonos regulares de 1 até 999 lados.
      *
      * @return
      */
     public AVL getArvoreCompleta() {
         AVL polygonTree = new AVL();
-        for(int i = 1; i <= 999; i++) {
+        for (int i = 3; i <= 999; i++) {
             String polygonName = getNomePoligno(i);
-            Prefixo pol= new Prefixo(i, polygonName);
+            Prefixo pol = new Prefixo(i, polygonName);
             polygonTree.insert(pol);
         }
         return polygonTree;
     }
 
+    /**
+     * d)
+     *
+     * Elabore um método que devolve o número de lados de um polígono regular
+     * através do seu nome.
+     *
+     */
+    public int getNrLados(String polNome) {
+        AVL polTree = getArvoreCompleta();
+        List<Prefixo> tree = (List<Prefixo>) polTree.inOrder();
+        Iterator itr = tree.iterator();
+        while (itr.hasNext()) {
+            Prefixo pref = (Prefixo) itr.next();
+            if (pref.getPref().equals(polNome)) {
+                return pref.getNumeroLados();
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * e)
+     *
+     * Dado um intervalo de números de lados o método deve devolver os
+     * correspondentes nomes dos polígonos por ordem inversa, do maior para o
+     * menor número de lados.
+     */
+    public List<String> getIntervaloNomes(int min, int max) {
+        List<String> polList = new ArrayList<>();
+        if (max < min || min < 1) {
+            return null;
+        }
+        int i = max;
+        while (i >= min) {
+            polList.add(getNomePoligno(i));
+            i--;
+        }
+        return polList;
+    }
 }

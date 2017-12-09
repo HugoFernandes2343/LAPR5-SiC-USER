@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package polignosregulares;
 
 import PL.AVL;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.After;
@@ -18,10 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author hugod
- */
+
 public class polignosRegularesBaseTest {
 
     public polignosRegularesBaseTest() {
@@ -126,43 +120,81 @@ public class polignosRegularesBaseTest {
 
     /**
      * Test of getNomePoligno method, of class polignosRegularesBase.
+     *
      * @throws java.io.IOException
      */
     @Test
     public void testGetNomePoligno() throws IOException {
         System.out.println("getNomePoligno");
-        
+
         polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
         List<Object> input = Files.lines(Paths.get("teste_lados_nome.txt")).collect(Collectors.toList());
 
         for (Object data : input) {
             String l = (String) data;
             String[] polygon = l.split(";");
+            System.out.print(polygon[1]);
+            System.out.print(instance.getNomePoligno(Integer.parseInt(polygon[0])));
             assertEquals(polygon[1], instance.getNomePoligno(Integer.parseInt(polygon[0])));
         }
     }
 
     /**
      * Test of getFullPolygonTree method, of class polignosRegularesBase.
+     *
      * @throws java.io.IOException
      */
     @Test
     public void testGetArvoreCompeta() throws IOException {
         System.out.println("getArvoreCompleta");
-       
+
         polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
         AVL expResult = new AVL();
         List<Object> input = Files.lines(Paths.get("teste_lados_nome.txt")).collect(Collectors.toList());
-       
-        for (Object data : input) {
-            String l = (String) data;
+
+        for (int i = 2; i < 999; i++) {
+            String l = (String) input.get(i);
             String[] polygon = l.split(";");
             expResult.insert(new Prefixo(Integer.parseInt(polygon[0]), polygon[1]));
         }
-        
+
         AVL result = instance.getArvoreCompleta();
         assertEquals(expResult, result);
 
+    }
+
+    /**
+     * Test of getNrLados method, of class polignosRegularesBase.
+     */
+    @Test
+    public void testGetNrLados() throws IOException {
+        System.out.println("getNrLados");
+        String polNome = "enneahectaoctacontaoctagon";
+        int expResult = 988;
+        polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
+
+        int result = instance.getNrLados(polNome);
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getIntervaloNomes method, of class polignosRegularesBase.
+     */
+    @Test
+    public void testGetIntervaloNomes() throws IOException {
+        System.out.println("getIntervaloNomes");
+        int min = 1;
+        int max = 3;
+        polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
+        List<String> expResult = new ArrayList<>();
+         expResult.add("trigon");
+        expResult.add("digon");
+        expResult.add("henagon");
+
+        List<String> result = instance.getIntervaloNomes(min, max);
+        assertEquals(expResult, result);
+        
     }
 
 }

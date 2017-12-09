@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package polignosregulares;
 
-
-/**
- *
- * @author hugod
- */
 public class Prefixo implements Comparable {
 
     private String Pref;
@@ -55,6 +46,11 @@ public class Prefixo implements Comparable {
     }
 
     @Override
+    public String toString() {
+        return String.format("%s", Pref);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -71,15 +67,15 @@ public class Prefixo implements Comparable {
 
     @Override
     public int compareTo(Object t) {
-      Prefixo p = (Prefixo) t;
-      
-      if(this.numeroLados > p.getNumeroLados()){
-          return 1;
-      }
-      if(this.numeroLados < p.getNumeroLados()){
-          return -1;
-      }
-      return 0;
+        Prefixo p = (Prefixo) t;
+
+        if (this.numeroLados > p.getNumeroLados()) {
+            return 1;
+        }
+        if (this.numeroLados < p.getNumeroLados()) {
+            return -1;
+        }
+        return 0;
     }
 
 }
