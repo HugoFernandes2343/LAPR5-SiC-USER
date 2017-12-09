@@ -152,7 +152,7 @@ public class polignosRegularesBaseTest {
         AVL expResult = new AVL();
         List<Object> input = Files.lines(Paths.get("teste_lados_nome.txt")).collect(Collectors.toList());
 
-        for (int i = 2; i < 999; i++) {
+        for (int i = 0; i < 999; i++) {
             String l = (String) input.get(i);
             String[] polygon = l.split(";");
             expResult.insert(new Prefixo(Integer.parseInt(polygon[0]), polygon[1]));
