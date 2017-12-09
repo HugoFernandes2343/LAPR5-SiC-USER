@@ -102,7 +102,7 @@ public class polignosRegularesBase extends BST {
      */
     public AVL getArvoreCompleta() {
         AVL polygonTree = new AVL();
-        for (int i = 3; i <= 999; i++) {
+        for (int i = 1; i <= 999; i++) {
             String polygonName = getNomePoligno(i);
             Prefixo pol = new Prefixo(i, polygonName);
             polygonTree.insert(pol);
@@ -164,11 +164,8 @@ public class polignosRegularesBase extends BST {
         AVL arvoreCompleta = getArvoreCompleta();
         Prefixo pa = new Prefixo(getNrLados(a), a);
         Prefixo pb = new Prefixo(getNrLados(b), b);
-        if (pa.equals(pb)) {
-            return pa;
-        }
         Prefixo prim, seg;
-        if (pa.getNumeroLados() > pb.getNumeroLados()) {
+        if (pa.getNumeroLados() < pb.getNumeroLados()) {
             prim = pa;
             seg = pb;
         } else {

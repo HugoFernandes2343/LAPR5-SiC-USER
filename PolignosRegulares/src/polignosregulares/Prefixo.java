@@ -62,7 +62,7 @@ public class Prefixo implements Comparable {
             return false;
         }
         final Prefixo other = (Prefixo) obj;
-        return this.numeroLados != other.numeroLados;
+        return this.numeroLados == other.numeroLados;
     }
 
     @Override

@@ -188,13 +188,28 @@ public class polignosRegularesBaseTest {
         int max = 3;
         polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
         List<String> expResult = new ArrayList<>();
-         expResult.add("trigon");
+        expResult.add("trigon");
         expResult.add("digon");
         expResult.add("henagon");
 
         List<String> result = instance.getIntervaloNomes(min, max);
         assertEquals(expResult, result);
         
+    }
+
+    /**
+     * Test of findLCA method, of class polignosRegularesBase.
+     */
+    @Test
+    public void testFindLCA() throws IOException {
+        System.out.println("findLCA");
+        String a = "dodecagon";
+        String b = "enneahectagon";
+        polignosRegularesBase instance = new polignosRegularesBase("poligonos_prefixo_unidades.txt", "poligonos_prefixo_dezenas.txt", "poligonos_prefixo_centenas.txt");
+        Prefixo expResult = new Prefixo(512, "pentahectadodecagon");
+        Prefixo result = instance.findLCA(a, b);
+        System.out.println(result.getNumeroLados()+ " : "+ result.getPref());
+        assertEquals(expResult, result);
     }
 
 }
